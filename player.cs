@@ -16,12 +16,12 @@ public partial class player : CharacterBody3D
 	float deceleration = -10f;
 	float velMultiplier = 4f;
 
-	public Node3D Head;
+	public Node3D Jet;
 	public Camera3D Cam;
 
 	public override void _Ready()
 	{
-		Head = GetNode<Node3D>("Neck");
+		Jet = GetParent<Node3D>();
 		Cam = GetNode<Camera3D>("Neck/Camera3D");
 
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -41,7 +41,7 @@ public partial class player : CharacterBody3D
 
 	public void UpdateMovement(float delta)
 	{
-		direction = new Vector3(0, 0, /*BoolToFloat(Input.IsActionPressed("down")) - */-BoolToFloat(Input.IsActionPressed("up")));
+		direction = new Vector3(0, 0, -BoolToFloat(Input.IsActionPressed("up")));
 
 		var offset = direction.Normalized() * acceleration * velMultiplier * delta + velocity.Normalized() * deceleration * velMultiplier * delta;
 
@@ -62,7 +62,7 @@ public partial class player : CharacterBody3D
 			velocity.Z = Mathf.Clamp(velocity.Z + offset.Z, -velMultiplier, velMultiplier);
 		}
 
-		Translate(velocity * delta * (Input.IsActionPressed("sprint") ? 4f * shiftMultiplier : 4f));
+		Jet.Translate(velocity * delta * (Input.IsActionPressed("sprint") ? 4f * shiftMultiplier : 4f));
 	}
 
 	public void UpdateMouseLook()

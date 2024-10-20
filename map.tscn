@@ -50,27 +50,28 @@ surface_material_override/0 = SubResource("ORMMaterial3D_g011w")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_p5a1k")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02172, 0)
-script = ExtResource("1_4or2p")
+[node name="Jet" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.26979, -1.93392, 16.9863)
+rotation_order = 0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_ggne8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("ConvexPolygonShape3D_beou5")
-
-[node name="Neck" type="Node3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5811, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Neck"]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
-
-[node name="Jet" type="Node3D" parent="CharacterBody3D/Neck/Camera3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.26979, -3.53674, 16.9863)
-
-[node name="sub-jet" parent="CharacterBody3D/Neck/Camera3D/Jet" instance=ExtResource("4_h3r6q")]
+[node name="sub-jet" parent="Jet" instance=ExtResource("4_h3r6q")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -5.16042, 0, 0)
 
-[node name="sub-jet2" parent="CharacterBody3D/Neck/Camera3D/Jet" instance=ExtResource("4_h3r6q")]
+[node name="sub-jet2" parent="Jet" instance=ExtResource("4_h3r6q")]
 transform = Transform3D(2.99993, 2.62262e-07, -0.0209438, -2.62268e-07, 3, 0, -0.0209438, -1.83096e-09, -2.99993, -5.23, 0, -16.66)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Jet"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -16.9863, 2.95564, -8.26979)
+script = ExtResource("1_4or2p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Jet/CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_ggne8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Jet/CharacterBody3D"]
+shape = SubResource("ConvexPolygonShape3D_beou5")
+
+[node name="Neck" type="Node3D" parent="Jet/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5811, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Jet/CharacterBody3D/Neck"]
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
