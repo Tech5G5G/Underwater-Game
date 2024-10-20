@@ -21,7 +21,7 @@ public partial class player : CharacterBody3D
 
 	public override void _Ready()
 	{
-		Jet = GetParent<Node3D>();
+		Jet = GetNode<Node3D>("Neck/Camera3D/Jet");
 		Cam = GetNode<Camera3D>("Neck/Camera3D");
 
 		Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -62,7 +62,7 @@ public partial class player : CharacterBody3D
 			velocity.Z = Mathf.Clamp(velocity.Z + offset.Z, -velMultiplier, velMultiplier);
 		}
 
-		Jet.Translate(velocity * delta * (Input.IsActionPressed("sprint") ? 4f * shiftMultiplier : 4f));
+		Translate(velocity * delta * (Input.IsActionPressed("sprint") ? 4f * shiftMultiplier : 4f));
 	}
 
 	public void UpdateMouseLook()
