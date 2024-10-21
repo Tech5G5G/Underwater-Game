@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://Skybox.png" id="1_ogeoh"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://Sand.jpg" id="2_2nkb0"]
 [ext_resource type="Script" path="res://player.cs" id="3_p7qid"]
-[ext_resource type="PackedScene" uid="uid://cnor83ayd7o13" path="res://Jet.glb" id="4_partn"]
+[ext_resource type="PackedScene" uid="uid://qqrkpd1pdkvd" path="res://jet.tscn" id="3_qvwbv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmto8"]
 panorama = ExtResource("1_ogeoh")
@@ -17,7 +17,7 @@ sky = SubResource("Sky_rniso")
 tonemap_mode = 2
 glow_enabled = true
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1
+volumetric_fog_density = 0.07
 volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dikv0"]
@@ -32,8 +32,8 @@ data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100,
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ggne8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_egqm3"]
-size = Vector3(11.8915, 1, 15.1403)
+[sub_resource type="BoxShape3D" id="BoxShape3D_lo6lw"]
+size = Vector3(1, 1.45044, 1)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
@@ -50,28 +50,33 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_r2a6t")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 1.02172, 4.76837e-07)
+[node name="Jet" parent="." instance=ExtResource("3_qvwbv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95789, 0)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Jet"]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 1.02172, -0.378363)
 script = ExtResource("3_p7qid")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Jet/CharacterBody3D"]
 mesh = SubResource("CapsuleMesh_ggne8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103355, 0, 1.64017)
-shape = SubResource("BoxShape3D_egqm3")
-
-[node name="Neck" type="Node3D" parent="CharacterBody3D"]
+[node name="Neck" type="Node3D" parent="Jet/CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5811, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Neck"]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
+[node name="Camera3D" type="Camera3D" parent="Jet/CharacterBody3D/Neck"]
+current = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CharacterBody3D/Neck/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.795469, -4.86507)
-light_energy = 0.5
-directional_shadow_mode = 0
-sky_mode = 1
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Jet/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.248901, 0)
+shape = SubResource("BoxShape3D_lo6lw")
 
-[node name="Jet2" parent="CharacterBody3D/Neck/Camera3D" instance=ExtResource("4_partn")]
-transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, -0.00285864, -2.57831, 1.4484)
+[node name="SpotLight" type="SpotLight3D" parent="Jet"]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 0.807352, -4.86507)
+spot_range = 11.9308
+spot_angle = 62.4469
+
+[node name="InsideLight" type="SpotLight3D" parent="Jet"]
+transform = Transform3D(1, 1.67037e-22, 3.82137e-15, -3.82137e-15, 4.37114e-08, 1, 0, -1, 4.37114e-08, -2.98023e-07, 2.08354, -1.60809)
+spot_range = 1.97223
+spot_attenuation = -4.0
+spot_angle = 48.7589
