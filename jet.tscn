@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://qqrkpd1pdkvd"]
+
+[ext_resource type="PackedScene" uid="uid://cnor83ayd7o13" path="res://Jet.glb" id="1_3oxdi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xf8e6"]
+size = Vector3(11.8915, 1, 15.1403)
+
+[node name="Jet" type="CharacterBody3D"]
+
+[node name="Jet" parent="." instance=ExtResource("1_3oxdi")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, -0.00285879, -0.97549, 1.4484)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103355, 0, 1.64017)
+shape = SubResource("BoxShape3D_xf8e6")
