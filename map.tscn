@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://Skybox.png" id="1_ogeoh"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://Sand.jpg" id="2_2nkb0"]
-[ext_resource type="PackedScene" uid="uid://cg7fpw42w0d3x" path="res://sub-jet.glb" id="2_7jpfy"]
 [ext_resource type="Script" path="res://player.cs" id="3_p7qid"]
+[ext_resource type="PackedScene" uid="uid://cnor83ayd7o13" path="res://Jet.glb" id="4_partn"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmto8"]
 panorama = ExtResource("1_ogeoh")
@@ -16,6 +16,9 @@ background_mode = 2
 sky = SubResource("Sky_rniso")
 tonemap_mode = 2
 glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dikv0"]
 size = Vector2(200, 200)
@@ -64,20 +67,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5811, 0)
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Neck"]
 transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
 
-[node name="Jet" type="Node3D" parent="CharacterBody3D/Neck/Camera3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.26979, -3.53674, 16.9863)
-rotation_order = 0
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CharacterBody3D/Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.795469, -4.86507)
+light_energy = 0.5
+directional_shadow_mode = 0
+sky_mode = 1
 
-[node name="sub-jet" parent="CharacterBody3D/Neck/Camera3D/Jet" instance=ExtResource("2_7jpfy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -5.16042, 0, 0)
-
-[node name="sub-jet2" parent="CharacterBody3D/Neck/Camera3D/Jet" instance=ExtResource("2_7jpfy")]
-transform = Transform3D(2.99993, 2.62262e-07, -0.0209438, -2.62268e-07, 3, 0, -0.0209438, -1.83096e-09, -2.99993, -5.23, 0, -16.66)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="CharacterBody3D/Neck/Camera3D"]
-transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 1.49012e-07, -0.0998447, -4.76837e-07)
-light_energy = 2.0
-omni_range = 1.9738
-
-[editable path="CharacterBody3D/Neck/Camera3D/Jet/sub-jet"]
-[editable path="CharacterBody3D/Neck/Camera3D/Jet/sub-jet2"]
+[node name="Jet2" parent="CharacterBody3D/Neck/Camera3D" instance=ExtResource("4_partn")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, -0.00285864, -2.57831, 1.4484)
