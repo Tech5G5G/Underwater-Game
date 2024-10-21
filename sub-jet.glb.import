@@ -33,6 +33,10 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
+"Material": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/Dark Aluminum.tres"
+},
 "Material.001": {
 "use_external/enabled": true,
 "use_external/path": "res://materials/Glass.tres"
