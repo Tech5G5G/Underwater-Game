@@ -9,7 +9,7 @@ public partial class player : CharacterBody3D
     Vector2 mousePosition = Vector2.Zero;
 	float totalPitch = 0f;
 
-    const float velMultiplier = 4f;
+	const float velMultiplier = 4f;
     const float acceleration = 30f;
     const float deceleration = -10f;
 
