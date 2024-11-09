@@ -1,5 +1,20 @@
 using Godot;
 using System;
+using ExtensionsMethods;
+
+namespace ExtensionsMethods
+{
+	public static class Extensions
+	{
+		/// <summary>Convert a boolean value to a float</summary>
+		/// <param name="input">bool to convert</param>
+		/// <returns>1f for true, 0f for false</returns>
+        public static float ToFloat(this bool input)
+        {
+            return input ? 1f : 0f;
+        }
+    }
+}
 
 public partial class player : CharacterBody3D
 {
@@ -42,17 +57,17 @@ public partial class player : CharacterBody3D
 
 	public void RotateJet()
 	{
-		var pitch = BoolToFloat(Input.IsActionPressed("up")) - BoolToFloat(Input.IsActionPressed("down"));
+		var pitch = Input.IsActionPressed("up").ToFloat() - Input.IsActionPressed("down").ToFloat();
         pitch = Mathf.Clamp(pitch, -90 - totalPitch, 90 - totalPitch);
         Jet.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
 
-        var yaw = BoolToFloat(Input.IsActionPressed("turn_right")) - BoolToFloat(Input.IsActionPressed("turn_left"));
+        var yaw = Input.IsActionPressed("turn_right").ToFloat() - Input.IsActionPressed("turn_left").ToFloat();
 		Jet.RotateY(Mathf.DegToRad(-yaw));
     }
 
     public void UpdateMovement(float delta)
 	{
-		direction = GlobalTransform.Basis * new Vector3(0, 0, -BoolToFloat(Input.IsActionPressed("accelerate")));
+		direction = GlobalTransform.Basis * new Vector3(0, 0, -Input.IsActionPressed("accelerate").ToFloat());
 		var offset = direction * acceleration * velMultiplier * delta + velocity * deceleration * velMultiplier * delta;
 		if (direction == Vector3.Zero && offset.LengthSquared() > velocity.LengthSquared())
 			velocity = Vector3.Zero;
@@ -65,7 +80,7 @@ public partial class player : CharacterBody3D
 
 		Jet.Velocity = velocity * (Input.IsActionPressed("speed_up") ? 7f * shiftMultiplier : 7f);
 		Jet.MoveAndSlide();
-	}
+    }
 
     public void UpdateMouseLook()
 	{
@@ -79,10 +94,5 @@ public partial class player : CharacterBody3D
 
         Cam.RotateY(Mathf.DegToRad(-yaw));
         Cam.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
-	}
-
-	private float BoolToFloat(bool input)
-	{
-		return input ? 1f : 0f;
 	}
 }
