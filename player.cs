@@ -23,6 +23,7 @@ public partial class player : CharacterBody3D
 
     Vector2 mousePosition = Vector2.Zero;
 	float totalPitch = 0f;
+    float totalYaw = 0f;
 
 	const float velMultiplier = 4f;
     const float acceleration = 30f;
@@ -33,11 +34,13 @@ public partial class player : CharacterBody3D
 
 	public CharacterBody3D Jet;
 	public Camera3D Cam;
+    public Camera3D ThirdCam;
 
 	public override void _Ready()
 	{
 		Jet = GetParent<CharacterBody3D>();
 		Cam = GetNode<Camera3D>("Neck/Camera3D");
+        ThirdCam = GetNode<Camera3D>("Neck/ThirdPersonCamera");
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -46,6 +49,9 @@ public partial class player : CharacterBody3D
 	{
 		if (@event is InputEventMouseMotion)
 			mousePosition = (@event as InputEventMouseMotion).Relative;
+
+        if (Input.IsActionJustPressed("toggle_camera"))
+            ToggleCamera();
 	}
 
 	public override void _Process(double delta)
@@ -53,6 +59,13 @@ public partial class player : CharacterBody3D
         UpdateMovement((float)delta);
 		RotateJet();
         UpdateMouseLook();
+	}
+
+	public void ToggleCamera()
+	{
+		bool toggle = Cam.Current;
+		Cam.Current = !toggle;
+		ThirdCam.Current = toggle;
 	}
 
 	public void RotateJet()
