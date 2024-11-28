@@ -52,6 +52,9 @@ public partial class player : CharacterBody3D
 
         if (Input.IsActionJustPressed("toggle_camera"))
             ToggleCamera();
+
+        if (Input.IsActionJustPressed("close"))
+            GetTree().Quit();
 	}
 
 	public override void _Process(double delta)
