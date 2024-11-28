@@ -106,7 +106,10 @@ public partial class player : CharacterBody3D
 		mousePosition = Vector2.Zero;
 
 		pitch = Mathf.Clamp(pitch, -90 - totalPitch, 90 - totalPitch);
-		totalPitch = pitch;
+		totalPitch += pitch;
+
+        yaw = Mathf.Clamp(yaw, -90 - totalYaw, 90 - totalYaw);
+        totalYaw += yaw;
 
         Cam.RotateY(Mathf.DegToRad(-yaw));
         Cam.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
