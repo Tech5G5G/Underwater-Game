@@ -1,9 +1,23 @@
-[gd_scene load_steps=13 format=3 uid="uid://hs2b6k5tdu60"]
+[gd_scene load_steps=23 format=3 uid="uid://hs2b6k5tdu60"]
 
+[ext_resource type="Texture2D" uid="uid://d4dl8cexqfqva" path="res://icon.svg" id="1_lspaf"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://Skybox.png" id="1_ogeoh"]
+[ext_resource type="Script" path="res://GameUi.cs" id="1_x228j"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://Sand.jpg" id="2_2nkb0"]
 [ext_resource type="Script" path="res://player.cs" id="3_p7qid"]
 [ext_resource type="PackedScene" uid="uid://qqrkpd1pdkvd" path="res://jet.tscn" id="3_qvwbv"]
+[ext_resource type="Texture2D" uid="uid://bla28xtbgi8c0" path="res://Flashlight.png" id="5_jt6sp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3y7d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pi4y"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b15ne"]
+size = Vector3(10, 10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_64ewe"]
+data = PackedVector3Array(-5, 5, 5, 5, 5, 5, -5, -5, 5, 5, 5, 5, 5, -5, 5, -5, -5, 5, 5, 5, -5, -5, 5, -5, 5, -5, -5, -5, 5, -5, -5, -5, -5, 5, -5, -5, 5, 5, 5, 5, 5, -5, 5, -5, 5, 5, 5, -5, 5, -5, -5, 5, -5, 5, -5, 5, -5, -5, 5, 5, -5, -5, -5, -5, 5, 5, -5, -5, 5, -5, -5, -5, 5, 5, 5, -5, 5, 5, 5, 5, -5, -5, 5, 5, -5, 5, -5, 5, 5, -5, -5, -5, 5, 5, -5, 5, -5, -5, -5, 5, -5, 5, 5, -5, -5, -5, -5, -5)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmto8"]
 panorama = ExtResource("1_ogeoh")
@@ -35,8 +49,122 @@ data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100,
 [sub_resource type="BoxShape3D" id="BoxShape3D_lo6lw"]
 size = Vector3(1, 1.45044, 1)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_s1b5y"]
+viewport_path = NodePath("Jet/Leveling/SubViewport")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bx4dn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcqq6"]
+bg_color = Color(0, 1, 0, 1)
+
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
+
+[node name="GameUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x228j")
+
+[node name="FPS" type="Label" parent="GameUI"]
+visible = false
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 51.0
+offset_bottom = 29.0
+text = "FPS: 0"
+
+[node name="FlashlightPercent" type="ProgressBar" parent="GameUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 62.0
+offset_top = -33.0
+offset_right = 134.0
+offset_bottom = -6.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/background = SubResource("StyleBoxEmpty_x3y7d")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8pi4y")
+step = 1.0
+value = 100.0
+
+[node name="TextureRect" type="TextureRect" parent="GameUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -33.0
+offset_right = 62.0
+offset_bottom = -6.0
+grow_vertical = 0
+texture = ExtResource("5_jt6sp")
+expand_mode = 1
+
+[node name="PauseMenu" type="Control" parent="GameUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.192157)
+
+[node name="TextureRect" type="TextureRect" parent="GameUI/PauseMenu"]
+layout_mode = 1
+offset_left = 75.0
+offset_top = 75.0
+offset_right = 203.0
+offset_bottom = 203.0
+texture = ExtResource("1_lspaf")
+
+[node name="ToggleFPS" type="Button" parent="GameUI/PauseMenu"]
+layout_mode = 1
+offset_left = 75.0
+offset_top = 247.0
+offset_right = 232.0
+offset_bottom = 278.0
+text = "Toggle FPS Counter"
+
+[node name="ToggleFullscreen" type="Button" parent="GameUI/PauseMenu"]
+layout_mode = 1
+offset_left = 75.0
+offset_top = 294.0
+offset_right = 217.0
+offset_bottom = 325.0
+text = "Toggle Fullscreen"
+
+[node name="Exit" type="Button" parent="GameUI/PauseMenu"]
+layout_mode = 1
+offset_left = 75.0
+offset_top = 341.0
+offset_right = 131.0
+offset_bottom = 373.0
+text = "Exit"
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.24272, -19.5568)
+mesh = SubResource("BoxMesh_b15ne")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_64ewe")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0t6va")
@@ -67,14 +195,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5811, 0)
 current = true
 
 [node name="ThirdPersonCamera" type="Camera3D" parent="Jet/CharacterBody3D/Neck"]
-transform = Transform3D(1, 3.14813e-15, 4.75546e-16, -3.14813e-15, 0.955382, 0.295375, 4.75551e-16, -0.295375, 0.955382, 0, 3.39451, 11.2702)
+transform = Transform3D(1, 3.14813e-15, 4.75546e-16, -3.14813e-15, 0.955381, 0.295375, 4.75551e-16, -0.295375, 0.955381, 0, 4.06788, 11.2702)
 
 [node name="SpotLight" type="SpotLight3D" parent="Jet/CharacterBody3D/Neck/ThirdPersonCamera"]
-transform = Transform3D(1, -2.21922e-15, 1.08917e-14, 4.43844e-15, 0.978082, -0.208219, -1.01909e-14, 0.208219, 0.978082, -1.49012e-07, -0.00126529, -0.0574408)
-visible = false
+transform = Transform3D(1, 3.42047e-15, 1.12219e-14, -6.84094e-15, 0.947104, 0.320927, -9.53056e-15, -0.320927, 0.947104, -1.49012e-07, 2.29867, 3.29839)
 light_energy = 16.0
-spot_range = 11.9308
-spot_angle = 47.6684
+spot_range = 21.0109
+spot_angle = 17.3277
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Jet/CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.248901, 0)
@@ -83,13 +210,42 @@ shape = SubResource("BoxShape3D_lo6lw")
 [node name="SpotLight" type="SpotLight3D" parent="Jet"]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 0.807352, -4.86507)
 visible = false
-spot_range = 11.9308
-spot_angle = 46.4866
+light_energy = 6.0
+spot_range = 179.622
+spot_angle = 39.3978
 
-[node name="InsideLight" type="SpotLight3D" parent="Jet"]
-transform = Transform3D(1, 1.67037e-22, 3.82137e-15, -3.82137e-15, 4.37114e-08, 1, 0, -1, 4.37114e-08, -2.98023e-07, 2.08354, -1.60809)
-visible = false
-light_energy = 0.25
-spot_range = 1.97223
-spot_attenuation = -4.0
-spot_angle = 48.7589
+[node name="Leveling" type="Sprite3D" parent="Jet"]
+transform = Transform3D(0.45096, 0, 0, 0, 0.153102, -2.30627, 0, 0.503537, 0.701225, -0.0223941, 1.52632, -2.05554)
+texture = SubResource("ViewportTexture_s1b5y")
+
+[node name="SubViewport" type="SubViewport" parent="Jet/Leveling"]
+transparent_bg = true
+size = Vector2i(119, 300)
+
+[node name="Leveling" type="ProgressBar" parent="Jet/Leveling/SubViewport"]
+offset_right = 119.0
+offset_bottom = 300.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxEmpty_bx4dn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vcqq6")
+step = 1.0
+value = 50.0
+allow_greater = true
+allow_lesser = true
+fill_mode = 3
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="Jet/Leveling/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -1.0
+offset_right = 59.5
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
