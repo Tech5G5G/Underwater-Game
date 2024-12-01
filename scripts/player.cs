@@ -31,7 +31,7 @@ public partial class player : CharacterBody3D
     public Camera3D ThirdCam;
     public SpotLight3D Spotlight;
 
-    public ProgressBar Leveling;
+    public Control LevelingBars;
     public ProgressBar FlashlightPercent;
     public Timer FlashlightTimer = new();
 
@@ -42,7 +42,7 @@ public partial class player : CharacterBody3D
         Cam = GetNode<Camera3D>("Neck/Camera3D");
         ThirdCam = GetNode<Camera3D>("Neck/ThirdPersonCamera");
 
-        Leveling = Jet.GetNode<ProgressBar>("Leveling/SubViewport/Leveling");
+        LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("GameUI/FlashlightPercent");
         FlashlightPercent.ValueChanged += (newValue) =>
         {
@@ -148,6 +148,7 @@ public partial class player : CharacterBody3D
         }
         Jet.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
 
+        //Make this control roll, which then controls turning
         var yaw = Input.IsActionPressed("turn_right").ToFloat() - Input.IsActionPressed("turn_left").ToFloat();
         if (yaw == 0)
         {
@@ -169,7 +170,7 @@ public partial class player : CharacterBody3D
         }
         Jet.RotateY(Mathf.DegToRad(-yaw));
 
-        Leveling.Value = 50 - this.GlobalRotationDegrees.X;
+        LevelingBars.Position = new Vector2(0, 76 + this.GlobalRotationDegrees.X);
     }
 
     public void UpdateMovement(float delta)

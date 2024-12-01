@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://dodlkyrqx6utv"]
+[gd_scene load_steps=21 format=3 uid="uid://dodlkyrqx6utv"]
 
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
 [ext_resource type="Script" path="res://scripts/GameUi.cs" id="1_x228j"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="2_2nkb0"]
 [ext_resource type="Texture2D" uid="uid://ckhqq8pta3o2i" path="res://textures/Hero.png" id="3_cpc86"]
 [ext_resource type="Script" path="res://scripts/player.cs" id="3_p7qid"]
-[ext_resource type="PackedScene" path="res://models/jet.tscn" id="3_qvwbv"]
+[ext_resource type="PackedScene" uid="uid://bc2ywxncnthc6" path="res://models/jet.tscn" id="3_qvwbv"]
 [ext_resource type="Texture2D" uid="uid://bla28xtbgi8c0" path="res://textures/Flashlight.png" id="5_jt6sp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3y7d"]
@@ -51,11 +51,6 @@ size = Vector3(1, 1.45044, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_s1b5y"]
 viewport_path = NodePath("Jet/Leveling/SubViewport")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bx4dn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcqq6"]
-bg_color = Color(0, 1, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
@@ -217,26 +212,12 @@ spot_range = 179.622
 spot_angle = 39.3978
 
 [node name="Leveling" type="Sprite3D" parent="Jet"]
-transform = Transform3D(0.45096, 0, 0, 0, 0.153102, -2.30627, 0, 0.503537, 0.701225, -0.0223941, 1.52632, -2.05554)
+transform = Transform3D(0.45096, 0, 0, 0, 0.526298, 0, 0, 0, 2.41052, -0.0223941, 1.52632, -1.64479)
 texture = SubResource("ViewportTexture_s1b5y")
 
 [node name="SubViewport" type="SubViewport" parent="Jet/Leveling"]
 transparent_bg = true
-size = Vector2i(119, 302)
-
-[node name="Leveling" type="ProgressBar" parent="Jet/Leveling/SubViewport"]
-offset_right = 119.0
-offset_bottom = 300.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/background = SubResource("StyleBoxEmpty_bx4dn")
-theme_override_styles/fill = SubResource("StyleBoxFlat_vcqq6")
-step = 1.0
-value = 50.0
-allow_greater = true
-allow_lesser = true
-fill_mode = 3
-show_percentage = false
+size = Vector2i(150, 154)
 
 [node name="ColorRect" type="ColorRect" parent="Jet/Leveling/SubViewport"]
 anchors_preset = 8
@@ -244,10 +225,173 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -59.5
+offset_left = -75.0
 offset_top = -1.0
-offset_right = 59.5
-offset_bottom = 1.0
+offset_right = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Control" type="Control" parent="Jet/Leveling/SubViewport"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -77.0
+offset_right = 75.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bars" type="Control" parent="Jet/Leveling/SubViewport/Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 76.0
+offset_right = 157.0
+offset_bottom = 303.0
+
+[node name="ColorRect" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -116.0
+offset_bottom = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_bottom = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+offset_right = -116.0
+offset_bottom = -176.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_top = 50.0
+offset_bottom = -176.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 98.0
+offset_right = -116.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect6" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_top = 98.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 148.0
+offset_right = -116.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_top = 148.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect9" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 197.0
+offset_right = -116.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect10" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_top = 197.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect11" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 243.0
+offset_right = -116.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect12" type="ColorRect" parent="Jet/Leveling/SubViewport/Control/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 116.0
+offset_top = 243.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 1, 0, 1)
