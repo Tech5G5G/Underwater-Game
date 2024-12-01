@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://hs2b6k5tdu60"]
+[gd_scene load_steps=23 format=3 uid="uid://dodlkyrqx6utv"]
 
 [ext_resource type="Texture2D" uid="uid://d4dl8cexqfqva" path="res://icon.svg" id="1_lspaf"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://Skybox.png" id="1_ogeoh"]
 [ext_resource type="Script" path="res://GameUi.cs" id="1_x228j"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://Sand.jpg" id="2_2nkb0"]
 [ext_resource type="Script" path="res://player.cs" id="3_p7qid"]
-[ext_resource type="PackedScene" uid="uid://qqrkpd1pdkvd" path="res://jet.tscn" id="3_qvwbv"]
+[ext_resource type="PackedScene" path="res://jet.tscn" id="3_qvwbv"]
 [ext_resource type="Texture2D" uid="uid://bla28xtbgi8c0" path="res://Flashlight.png" id="5_jt6sp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3y7d"]
