@@ -1,9 +1,9 @@
 [gd_scene load_steps=23 format=3 uid="uid://dodlkyrqx6utv"]
 
-[ext_resource type="Texture2D" uid="uid://d4dl8cexqfqva" path="res://textures/icon.svg" id="1_lspaf"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
 [ext_resource type="Script" path="res://scripts/GameUi.cs" id="1_x228j"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="2_2nkb0"]
+[ext_resource type="Texture2D" uid="uid://ckhqq8pta3o2i" path="res://textures/Hero.png" id="3_cpc86"]
 [ext_resource type="Script" path="res://scripts/player.cs" id="3_p7qid"]
 [ext_resource type="PackedScene" path="res://models/jet.tscn" id="3_qvwbv"]
 [ext_resource type="Texture2D" uid="uid://bla28xtbgi8c0" path="res://textures/Flashlight.png" id="5_jt6sp"]
@@ -127,34 +127,36 @@ color = Color(0, 0, 0, 0.192157)
 
 [node name="TextureRect" type="TextureRect" parent="GameUI/PauseMenu"]
 layout_mode = 1
-offset_left = 75.0
+offset_left = 33.0
 offset_top = 75.0
-offset_right = 203.0
-offset_bottom = 203.0
-texture = ExtResource("1_lspaf")
+offset_right = 3457.0
+offset_bottom = 712.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_cpc86")
+expand_mode = 1
 
 [node name="ToggleFPS" type="Button" parent="GameUI/PauseMenu"]
 layout_mode = 1
 offset_left = 75.0
-offset_top = 247.0
+offset_top = 220.0
 offset_right = 232.0
-offset_bottom = 278.0
+offset_bottom = 251.0
 text = "Toggle FPS Counter"
 
 [node name="ToggleFullscreen" type="Button" parent="GameUI/PauseMenu"]
 layout_mode = 1
 offset_left = 75.0
-offset_top = 294.0
+offset_top = 267.0
 offset_right = 217.0
-offset_bottom = 325.0
+offset_bottom = 298.0
 text = "Toggle Fullscreen"
 
 [node name="Exit" type="Button" parent="GameUI/PauseMenu"]
 layout_mode = 1
 offset_left = 75.0
-offset_top = 341.0
+offset_top = 314.0
 offset_right = 131.0
-offset_bottom = 373.0
+offset_bottom = 346.0
 text = "Exit"
 
 [node name="Cube" type="MeshInstance3D" parent="."]
