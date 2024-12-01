@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6gyhi0f24qnw"
-path.s3tc="res://.godot/imported/Skybox.png-9544fe1d0d429c010c0f9515abfc9afa.s3tc.ctex"
+uid="uid://cfwjrkf4wnaia"
+path.s3tc="res://.godot/imported/Sand.jpg-e024902f5105e5c5a1ade3bb6d6872c4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Skybox.png"
-dest_files=["res://.godot/imported/Skybox.png-9544fe1d0d429c010c0f9515abfc9afa.s3tc.ctex"]
+source_file="res://textures/Sand.jpg"
+dest_files=["res://.godot/imported/Sand.jpg-e024902f5105e5c5a1ade3bb6d6872c4.s3tc.ctex"]
 
 [params]
 

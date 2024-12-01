@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cg7fpw42w0d3x"
-path="res://.godot/imported/sub-jet.glb-c07a857487985a82c716f0656e311eb6.scn"
+uid="uid://cnor83ayd7o13"
+path="res://.godot/imported/Jet.glb-f7aebd96d4e33c0fff3ea7624ef9e23b.scn"
 
 [deps]
 
-source_file="res://sub-jet.glb"
-dest_files=["res://.godot/imported/sub-jet.glb-c07a857487985a82c716f0656e311eb6.scn"]
+source_file="res://models/Jet.glb"
+dest_files=["res://.godot/imported/Jet.glb-f7aebd96d4e33c0fff3ea7624ef9e23b.scn"]
 
 [params]
 
