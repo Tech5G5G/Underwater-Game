@@ -222,7 +222,7 @@ texture = SubResource("ViewportTexture_s1b5y")
 
 [node name="SubViewport" type="SubViewport" parent="Jet/Leveling"]
 transparent_bg = true
-size = Vector2i(119, 300)
+size = Vector2i(120, 302)
 
 [node name="Leveling" type="ProgressBar" parent="Jet/Leveling/SubViewport"]
 offset_right = 119.0
