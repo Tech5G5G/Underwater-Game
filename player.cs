@@ -17,7 +17,14 @@ public partial class player : CharacterBody3D
 
     Vector3 direction = Vector3.Zero;
 	Vector3 velocity = Vector3.Zero;
+
     float previousSlowdown = 0f;
+
+    float previousUpSlowdown = 0;
+    float previousDownSlowdown = 0;
+
+    float previousRightSlowdown = 0;
+    float previousLeftSlowdown = 0;
 
     public CharacterBody3D Jet;
 	public Camera3D Cam;
@@ -60,11 +67,51 @@ public partial class player : CharacterBody3D
 
 	public void RotateJet()
 	{
+        previousUpSlowdown = previousUpSlowdown > 0 ? previousUpSlowdown : Input.IsActionJustReleased("up") ? 1 : 0;
+        previousDownSlowdown = previousDownSlowdown < 0 ? previousDownSlowdown : Input.IsActionJustReleased("down") ? -1 : 0;
+        previousRightSlowdown = previousRightSlowdown > 0 ? previousRightSlowdown : Input.IsActionJustReleased("turn_right") ? 1 : 0;
+        previousLeftSlowdown = previousLeftSlowdown < 0 ? previousLeftSlowdown : Input.IsActionJustReleased("turn_left") ? -1 : 0;
+
 		var pitch = Input.IsActionPressed("up").ToFloat() - Input.IsActionPressed("down").ToFloat();
-        pitch = Mathf.Clamp(pitch, -90 - totalPitch, 90 - totalPitch);
+        if (pitch == 0)
+        {
+            if (previousUpSlowdown > 0)
+            {
+                previousUpSlowdown -= 0.1f;
+                pitch = previousUpSlowdown;
+            }
+            else if (previousDownSlowdown < 0)
+            {
+                previousDownSlowdown += 0.1f;
+                pitch = previousDownSlowdown;
+            }
+        }
+        else
+        {
+            previousUpSlowdown = 0;
+            previousDownSlowdown = 0;
+        }
         Jet.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
 
         var yaw = Input.IsActionPressed("turn_right").ToFloat() - Input.IsActionPressed("turn_left").ToFloat();
+        if (yaw == 0)
+        {
+            if (previousRightSlowdown > 0)
+            {
+                previousRightSlowdown -= 0.03f;
+                yaw = previousRightSlowdown;
+            }
+            else if (previousLeftSlowdown < 0)
+            {
+                previousLeftSlowdown += 0.03f;
+                yaw = previousLeftSlowdown;
+            }
+        }
+        else
+        {
+            previousRightSlowdown = 0;
+            previousLeftSlowdown = 0;
+        }
 		Jet.RotateY(Mathf.DegToRad(-yaw));
     }
 
@@ -76,7 +123,7 @@ public partial class player : CharacterBody3D
 		{
 			if (previousSlowdown > 0)
 			{
-				previousSlowdown -= 0.03f / (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1);
+				previousSlowdown -= 0.02f / (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1);
 
                 direction = GlobalTransform.Basis * new Vector3(0, 0, -previousSlowdown);
                 offset = direction * acceleration * velMultiplier * delta + velocity * deceleration * velMultiplier * delta;
