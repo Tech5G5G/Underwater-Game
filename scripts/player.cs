@@ -2,7 +2,7 @@ using Godot;
 using System;
 using UnderwaterGame;
 
-public partial class player : CharacterBody3D
+public partial class player : Node3D
 {
     const float shiftMultiplier = 2f;
     const float sensitivity = 0.25f;

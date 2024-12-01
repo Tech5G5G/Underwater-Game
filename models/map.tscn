@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dodlkyrqx6utv"]
+[gd_scene load_steps=20 format=3 uid="uid://dodlkyrqx6utv"]
 
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
 [ext_resource type="Script" path="res://scripts/GameUi.cs" id="1_x228j"]
@@ -45,9 +45,6 @@ heightmap_scale = 1.0
 data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ggne8"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lo6lw"]
-size = Vector3(1, 1.45044, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_s1b5y"]
 viewport_path = NodePath("Jet/Leveling/SubViewport")
@@ -176,17 +173,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
 shape = SubResource("ConcavePolygonShape3D_r2a6t")
 
 [node name="Jet" parent="." instance=ExtResource("3_qvwbv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95789, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00943, 0)
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="Jet"]
-transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 1.02172, -0.378363)
+[node name="CharacterBody3D" type="Node3D" parent="Jet"]
 script = ExtResource("3_p7qid")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Jet/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01754, -0.378324)
 mesh = SubResource("CapsuleMesh_ggne8")
 
 [node name="Neck" type="Node3D" parent="Jet/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5811, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59864, -0.378324)
 
 [node name="Camera3D" type="Camera3D" parent="Jet/CharacterBody3D/Neck"]
 current = true
@@ -199,10 +196,6 @@ transform = Transform3D(1, 3.42047e-15, 1.12219e-14, -6.84094e-15, 0.947104, 0.3
 light_energy = 16.0
 spot_range = 21.0109
 spot_angle = 17.3277
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Jet/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.248901, 0)
-shape = SubResource("BoxShape3D_lo6lw")
 
 [node name="SpotLight" type="SpotLight3D" parent="Jet"]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 0.807352, -4.86507)
