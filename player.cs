@@ -4,11 +4,11 @@ using UnderwaterGame;
 
 public partial class player : CharacterBody3D
 {
-	const float shiftMultiplier = 2f;
-	const float sensitivity = 0.25f;
+    const float shiftMultiplier = 2f;
+    const float sensitivity = 0.25f;
 
     Vector2 mousePosition = Vector2.Zero;
-	float totalPitch = 0f;
+    float totalPitch = 0f;
     float totalYaw = 0f;
 
     const float velMultiplier = 4f;
@@ -16,7 +16,7 @@ public partial class player : CharacterBody3D
     const float deceleration = -10f;
 
     Vector3 direction = Vector3.Zero;
-	Vector3 velocity = Vector3.Zero;
+    Vector3 velocity = Vector3.Zero;
 
     float previousSlowdown = 0f;
 
@@ -27,31 +27,32 @@ public partial class player : CharacterBody3D
     float previousLeftSlowdown = 0;
 
     public CharacterBody3D Jet;
-	public Camera3D Cam;
+    public Camera3D Cam;
     public Camera3D ThirdCam;
     public SpotLight3D Spotlight;
 
+    public ProgressBar Leveling;
     public ProgressBar FlashlightPercent;
     public Timer FlashlightTimer = new();
 
     public override void _Ready()
-	{
-		Jet = GetParent<CharacterBody3D>();
+    {
+        Jet = GetParent<CharacterBody3D>();
         Spotlight = Jet.GetNode<SpotLight3D>("SpotLight");
-		Cam = GetNode<Camera3D>("Neck/Camera3D");
+        Cam = GetNode<Camera3D>("Neck/Camera3D");
         ThirdCam = GetNode<Camera3D>("Neck/ThirdPersonCamera");
 
-        Input.MouseMode = Input.MouseModeEnum.Captured;
+        Leveling = Jet.GetNode<ProgressBar>("Leveling/SubViewport/Leveling");
         FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("GameUI/FlashlightPercent");
         FlashlightPercent.ValueChanged += (newValue) =>
         {
             if (newValue <= 0)
                 ToggleFlashlight();
         };
-	}
+    }
 
     public override void _Input(InputEvent @event)
-	{
+    {
 		if (@event is InputEventMouseMotion)
 			mousePosition = (@event as InputEventMouseMotion).Relative;
 
@@ -119,14 +120,14 @@ public partial class player : CharacterBody3D
         }
     }
 
-	public void RotateJet()
+    public void RotateJet()
 	{
         previousUpSlowdown = previousUpSlowdown > 0 ? previousUpSlowdown : Input.IsActionJustReleased("up") ? 1 : 0;
         previousDownSlowdown = previousDownSlowdown < 0 ? previousDownSlowdown : Input.IsActionJustReleased("down") ? -1 : 0;
         previousRightSlowdown = previousRightSlowdown > 0 ? previousRightSlowdown : Input.IsActionJustReleased("turn_right") ? 1 : 0;
         previousLeftSlowdown = previousLeftSlowdown < 0 ? previousLeftSlowdown : Input.IsActionJustReleased("turn_left") ? -1 : 0;
 
-		var pitch = Input.IsActionPressed("up").ToFloat() - Input.IsActionPressed("down").ToFloat();
+        var pitch = Input.IsActionPressed("up").ToFloat() - Input.IsActionPressed("down").ToFloat();
         if (pitch == 0)
         {
             if (previousUpSlowdown > 0)
@@ -166,7 +167,9 @@ public partial class player : CharacterBody3D
             previousRightSlowdown = 0;
             previousLeftSlowdown = 0;
         }
-		Jet.RotateY(Mathf.DegToRad(-yaw));
+        Jet.RotateY(Mathf.DegToRad(-yaw));
+
+        Leveling.Value = 50 - this.GlobalRotationDegrees.X;
     }
 
     public void UpdateMovement(float delta)
