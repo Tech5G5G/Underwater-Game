@@ -14,10 +14,13 @@ export_presets.cfg
 data_*/
 mono_crash.*.json
 
-# Other
+# VS-sepcific ignores
 .vs/
+.vscode/
+Properties/
+
+# Other
 *.tmp
 *.ini
 /android/
-.vscode/
 addons/godot-git-plugin
