@@ -29,14 +29,25 @@ public partial class player : CharacterBody3D
     public CharacterBody3D Jet;
 	public Camera3D Cam;
     public Camera3D ThirdCam;
+    public SpotLight3D Spotlight;
+
+    public ProgressBar FlashlightPercent;
+    public Timer FlashlightTimer = new();
 
     public override void _Ready()
 	{
 		Jet = GetParent<CharacterBody3D>();
+        Spotlight = Jet.GetNode<SpotLight3D>("SpotLight");
 		Cam = GetNode<Camera3D>("Neck/Camera3D");
         ThirdCam = GetNode<Camera3D>("Neck/ThirdPersonCamera");
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
+        FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("GameUI/FlashlightPercent");
+        FlashlightPercent.ValueChanged += (newValue) =>
+        {
+            if (newValue <= 0)
+                ToggleFlashlight();
+        };
 	}
 
     public override void _Input(InputEvent @event)
@@ -47,8 +58,8 @@ public partial class player : CharacterBody3D
         if (Input.IsActionJustPressed("toggle_camera"))
             ToggleCamera();
 
-        if (Input.IsActionJustPressed("close"))
-            GetTree().Quit();
+        if (Input.IsActionJustPressed("toggle_flashlight"))
+            ToggleFlashlight();
     }
 
 	public override void _Process(double delta)
@@ -64,6 +75,49 @@ public partial class player : CharacterBody3D
 		Cam.Current = !toggle;
 		ThirdCam.Current = toggle;
 	}
+
+    public void ToggleFlashlight()
+    {
+        bool toggle = Spotlight.Visible;
+        if (!toggle && FlashlightPercent.Value == 100)
+        {
+            Spotlight.Visible = !toggle;
+
+            FlashlightTimer.Stop();
+            FlashlightTimer.Dispose();
+            FlashlightTimer = new();
+            AddChild(FlashlightTimer);
+
+            FlashlightTimer.OneShot = false;
+            FlashlightTimer.Timeout += () =>
+            {
+                if (FlashlightPercent.Value > 0)
+                    FlashlightPercent.Value -= 1;
+                else
+                    FlashlightTimer.Stop();
+            };
+            FlashlightTimer.Start(0.3);
+        }
+        else if (toggle)
+        {
+            Spotlight.Visible = !toggle;
+
+            FlashlightTimer.Stop();
+            FlashlightTimer.Dispose();
+            FlashlightTimer = new();
+            AddChild(FlashlightTimer);
+
+            FlashlightTimer.OneShot = false;
+            FlashlightTimer.Timeout += () =>
+            {
+                if (FlashlightPercent.Value < 100)
+                    FlashlightPercent.Value += 1;
+                else
+                    FlashlightTimer.Stop();
+            };
+            FlashlightTimer.Start(0.1);
+        }
+    }
 
 	public void RotateJet()
 	{
