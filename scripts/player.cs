@@ -7,13 +7,13 @@ public partial class player : Node3D
     const float shiftMultiplier = 2f;
     const float sensitivity = 0.25f;
 
-    Vector2 mousePosition = Vector2.Zero;
-    float totalPitch = 0f;
-    float totalYaw = 0f;
-
     const float velMultiplier = 4f;
     const float acceleration = 30f;
     const float deceleration = -10f;
+
+    Vector2 mousePosition = Vector2.Zero;
+    float totalPitch = 0f;
+    float totalYaw = 0f;
 
     Vector3 direction = Vector3.Zero;
     Vector3 velocity = Vector3.Zero;
