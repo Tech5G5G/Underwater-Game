@@ -26,6 +26,9 @@ public partial class player : Node3D
     float previousRightSlowdown = 0;
     float previousLeftSlowdown = 0;
 
+    float previousRightRollSlowdown = 0;
+    float previousLeftRollSlowdown = 0;
+
     public CharacterBody3D Jet;
     public Camera3D Cam;
     public Camera3D ThirdCam;
@@ -43,6 +46,8 @@ public partial class player : Node3D
         ThirdCam = GetNode<Camera3D>("Neck/ThirdPersonCamera");
 
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
+        LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
+
         FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("GameUI/FlashlightPercent");
         FlashlightPercent.ValueChanged += (newValue) =>
         {
@@ -61,6 +66,9 @@ public partial class player : Node3D
 
         if (Input.IsActionJustPressed("toggle_flashlight"))
             ToggleFlashlight();
+
+        if (Input.IsActionJustPressed("reset_roll"))
+            Jet.Rotation = new Vector3(Jet.Rotation.X, Jet.Rotation.Y, 0);
     }
 
 	public override void _Process(double delta)
@@ -148,19 +156,18 @@ public partial class player : Node3D
         }
         Jet.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
 
-        //Make this control roll, which then controls turning
-        var yaw = Input.IsActionPressed("turn_right").ToFloat() - Input.IsActionPressed("turn_left").ToFloat();
-        if (yaw == 0)
+        var roll = Input.IsActionPressed("turn_right").ToFloat() - Input.IsActionPressed("turn_left").ToFloat();
+        if (roll == 0)
         {
             if (previousRightSlowdown > 0)
             {
                 previousRightSlowdown -= 0.03f;
-                yaw = previousRightSlowdown;
+                roll = previousRightSlowdown;
             }
             else if (previousLeftSlowdown < 0)
             {
                 previousLeftSlowdown += 0.03f;
-                yaw = previousLeftSlowdown;
+                roll = previousLeftSlowdown;
             }
         }
         else
@@ -168,9 +175,43 @@ public partial class player : Node3D
             previousRightSlowdown = 0;
             previousLeftSlowdown = 0;
         }
-        Jet.RotateY(Mathf.DegToRad(-yaw));
+        Jet.RotateObjectLocal(Vector3.ModelFront, -(roll * 0.025f));
 
-        LevelingBars.Position = new Vector2(0, 76 + this.GlobalRotationDegrees.X);
+        if (Input.IsActionPressed("accelerate"))
+        {
+            Jet.RotateY(Mathf.DegToRad(Jet.RotationDegrees.Z * 0.025f * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
+            if (Jet.RotationDegrees.Z > 0)
+            {
+                previousRightRollSlowdown = 1;
+                previousLeftRollSlowdown = 0;
+            }
+            else if (Jet.RotationDegrees.Z < 0)
+            {
+                previousLeftRollSlowdown = -1;
+                previousRightRollSlowdown = 0;
+            }
+        }
+        else if (previousSlowdown > 0 && previousSlowdown < 1)
+        {
+            if (previousRightRollSlowdown > 0)
+            {
+                previousRightRollSlowdown -= 0.02f;
+                Jet.RotateY(Mathf.DegToRad(previousRightRollSlowdown * 0.025f * Jet.RotationDegrees.Z * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
+            }
+            if (previousLeftRollSlowdown < 0)
+            {
+                previousLeftRollSlowdown += 0.02f;
+                Jet.RotateY(Mathf.DegToRad(-previousLeftRollSlowdown * 0.025f * Jet.RotationDegrees.Z * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
+            }
+        }
+        else
+        {
+            previousLeftRollSlowdown = 0;
+            previousRightRollSlowdown = 0;
+        }
+
+        LevelingBars.Position = new Vector2(0, 76 + Jet.GlobalRotationDegrees.X);
+        LevelingBars.RotationDegrees = Jet.GlobalRotationDegrees.Z;
     }
 
     public void UpdateMovement(float delta)
