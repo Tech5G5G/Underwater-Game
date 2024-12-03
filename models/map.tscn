@@ -100,6 +100,7 @@ texture = ExtResource("5_jt6sp")
 expand_mode = 1
 
 [node name="PauseMenu" type="Control" parent="GameUI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,6 +144,7 @@ offset_bottom = 263.0
 text = "Toggle Fullscreen"
 
 [node name="ShowKeybinds" type="Button" parent="GameUI/PauseMenu"]
+layout_mode = 0
 offset_left = 75.0
 offset_top = 279.0
 offset_right = 131.0
@@ -165,9 +167,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -42.0
-offset_top = 60.0
+offset_top = 56.0
 offset_right = -253.0
-offset_bottom = -177.0
+offset_bottom = -181.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -442,12 +444,123 @@ text = "Fly"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ShiftKey" type="Control" parent="GameUI/PauseMenu/Keybinds"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 375.0
+offset_right = 40.0
+offset_bottom = 415.0
+
+[node name="Key" type="Control" parent="GameUI/PauseMenu/Keybinds/ShiftKey"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 85.0
+offset_top = 20.0
+offset_right = 135.0
+offset_bottom = 70.0
+grow_horizontal = 0
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/PauseMenu/Keybinds/ShiftKey/Key"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameUI/PauseMenu/Keybinds/ShiftKey/Key"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Shift"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="GameUI/PauseMenu/Keybinds/ShiftKey"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 206.0
+offset_top = 24.0
+offset_right = 318.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Faster"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FKey" type="Control" parent="GameUI/PauseMenu/Keybinds"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 450.0
+offset_right = 40.0
+offset_bottom = 490.0
+
+[node name="Key" type="Control" parent="GameUI/PauseMenu/Keybinds/FKey"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 85.0
+offset_top = 20.0
+offset_right = 135.0
+offset_bottom = 70.0
+grow_horizontal = 0
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/PauseMenu/Keybinds/FKey/Key"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameUI/PauseMenu/Keybinds/FKey/Key"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="GameUI/PauseMenu/Keybinds/FKey"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 156.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Flashlight"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="QKey" type="Control" parent="GameUI/PauseMenu/Keybinds"]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 225.0
+offset_top = 525.0
 offset_right = 40.0
-offset_bottom = 265.0
+offset_bottom = 565.0
 
 [node name="Key" type="Control" parent="GameUI/PauseMenu/Keybinds/QKey"]
 layout_mode = 1
@@ -477,7 +590,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
-text = "D"
+text = "Q"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -492,7 +605,61 @@ offset_right = 320.0
 offset_bottom = 66.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 30
-text = "Roll Right"
+text = "Reset roll"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="F5Key" type="Control" parent="GameUI/PauseMenu/Keybinds"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 600.0
+offset_right = 40.0
+offset_bottom = 640.0
+
+[node name="Key" type="Control" parent="GameUI/PauseMenu/Keybinds/F5Key"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 85.0
+offset_top = 20.0
+offset_right = 135.0
+offset_bottom = 70.0
+grow_horizontal = 0
+
+[node name="ColorRect" type="ColorRect" parent="GameUI/PauseMenu/Keybinds/F5Key/Key"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameUI/PauseMenu/Keybinds/F5Key/Key"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "F5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="GameUI/PauseMenu/Keybinds/F5Key"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 156.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Camera"
 horizontal_alignment = 1
 vertical_alignment = 1
 

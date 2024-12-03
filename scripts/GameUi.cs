@@ -6,7 +6,7 @@ public partial class GameUi : Control
     public Label FPSCounter;
     public Control PauseMenu;
     public Control Keybinds;
-    public ColorRect PauseMenuBackground;
+    public TextureRect Logo;
 
     public Button ToggleFPS;
     public Button ToggleFullscreen;
@@ -18,7 +18,7 @@ public partial class GameUi : Control
         FPSCounter = GetNode<Label>("FPS");
         PauseMenu = GetNode<Control>("PauseMenu");
         Keybinds = GetNode<Control>("PauseMenu/Keybinds");
-        PauseMenuBackground = GetNode<ColorRect>("PauseMenu/ColorRect");
+        Logo = GetNode<TextureRect>("PauseMenu/TextureRect");
 
         ToggleFPS = PauseMenu.GetNode<Button>("ToggleFPS");
         ToggleFPS.ButtonUp += () => FPSCounter.Visible = !FPSCounter.Visible;
@@ -27,7 +27,11 @@ public partial class GameUi : Control
         ToggleFullscreen.ButtonUp += () => _ToggleFullscreen();
 
         ShowKeybinds = PauseMenu.GetNode<Button>("ShowKeybinds");
-        ShowKeybinds.ButtonUp += () => Keybinds.Visible = !Keybinds.Visible;
+        ShowKeybinds.ButtonUp += () =>
+        {
+            Keybinds.Visible = true;
+            Logo.Visible = Logo.Visible = ToggleFPS.Visible = ToggleFullscreen.Visible = ShowKeybinds.Visible = Exit.Visible = false;
+        };
 
         Exit = PauseMenu.GetNode<Button>("Exit");
         Exit.ButtonUp += () => GetTree().Quit();
@@ -41,7 +45,10 @@ public partial class GameUi : Control
         if (Input.IsActionJustPressed("pause"))
         {
             if (Keybinds.Visible)
+            {
                 Keybinds.Visible = false;
+                Logo.Visible = Logo.Visible = ToggleFPS.Visible = ToggleFullscreen.Visible = ShowKeybinds.Visible = Exit.Visible = true;
+            }
             else
             {
                 var toggle = PauseMenu.Visible;
