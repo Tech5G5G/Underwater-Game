@@ -5,21 +5,29 @@ public partial class GameUi : Control
 {
     public Label FPSCounter;
     public Control PauseMenu;
+    public Control Keybinds;
+    public ColorRect PauseMenuBackground;
 
     public Button ToggleFPS;
     public Button ToggleFullscreen;
+    public Button ShowKeybinds;
     public Button Exit;
 
     public override void _Ready()
 	{
         FPSCounter = GetNode<Label>("FPS");
         PauseMenu = GetNode<Control>("PauseMenu");
+        Keybinds = GetNode<Control>("PauseMenu/Keybinds");
+        PauseMenuBackground = GetNode<ColorRect>("PauseMenu/ColorRect");
 
         ToggleFPS = PauseMenu.GetNode<Button>("ToggleFPS");
         ToggleFPS.ButtonUp += () => FPSCounter.Visible = !FPSCounter.Visible;
 
         ToggleFullscreen = PauseMenu.GetNode<Button>("ToggleFullscreen");
         ToggleFullscreen.ButtonUp += () => _ToggleFullscreen();
+
+        ShowKeybinds = PauseMenu.GetNode<Button>("ShowKeybinds");
+        ShowKeybinds.ButtonUp += () => Keybinds.Visible = !Keybinds.Visible;
 
         Exit = PauseMenu.GetNode<Button>("Exit");
         Exit.ButtonUp += () => GetTree().Quit();
@@ -32,19 +40,24 @@ public partial class GameUi : Control
     {
         if (Input.IsActionJustPressed("pause"))
         {
-            var toggle = PauseMenu.Visible;
-
-            if (!toggle)
-            {
-                PauseMenu.Visible = !toggle;
-                Input.MouseMode = Input.MouseModeEnum.Visible;
-                GetTree().Paused = true;
-            }
+            if (Keybinds.Visible)
+                Keybinds.Visible = false;
             else
             {
-                PauseMenu.Visible = !toggle;
-                Input.MouseMode = Input.MouseModeEnum.Captured;
-                GetTree().Paused = false;
+                var toggle = PauseMenu.Visible;
+
+                if (!toggle)
+                {
+                    PauseMenu.Visible = !toggle;
+                    Input.MouseMode = Input.MouseModeEnum.Visible;
+                    GetTree().Paused = true;
+                }
+                else
+                {
+                    PauseMenu.Visible = !toggle;
+                    Input.MouseMode = Input.MouseModeEnum.Captured;
+                    GetTree().Paused = false;
+                }
             }
         }
 
