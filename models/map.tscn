@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://dodlkyrqx6utv"]
+[gd_scene load_steps=21 format=3 uid="uid://dodlkyrqx6utv"]
 
+[ext_resource type="Script" path="res://scripts/Map.cs" id="1_c0s1y"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
 [ext_resource type="Script" path="res://scripts/GameUi.cs" id="1_x228j"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="2_2nkb0"]
@@ -51,6 +52,7 @@ viewport_path = NodePath("Jet/Leveling/SubViewport")
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
+script = ExtResource("1_c0s1y")
 
 [node name="GameUI" type="Control" parent="."]
 layout_mode = 3
