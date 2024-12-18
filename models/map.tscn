@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dodlkyrqx6utv"]
+[gd_scene load_steps=19 format=3 uid="uid://dodlkyrqx6utv"]
 
 [ext_resource type="Script" path="res://scripts/Map.cs" id="1_c0s1y"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
@@ -13,12 +13,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pi4y"]
 bg_color = Color(0, 1, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_b15ne"]
-size = Vector3(10, 10, 10)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_64ewe"]
-data = PackedVector3Array(-5, 5, 5, 5, 5, 5, -5, -5, 5, 5, 5, 5, 5, -5, 5, -5, -5, 5, 5, 5, -5, -5, 5, -5, 5, -5, -5, -5, 5, -5, -5, -5, -5, 5, -5, -5, 5, 5, 5, 5, 5, -5, 5, -5, 5, 5, 5, -5, 5, -5, -5, 5, -5, 5, -5, 5, -5, -5, 5, 5, -5, -5, -5, -5, 5, 5, -5, -5, 5, -5, -5, -5, 5, 5, 5, -5, 5, 5, 5, 5, -5, -5, 5, 5, -5, 5, -5, 5, 5, -5, -5, -5, 5, 5, -5, 5, -5, -5, -5, 5, -5, 5, 5, -5, -5, -5, -5, -5)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmto8"]
 panorama = ExtResource("1_ogeoh")
@@ -664,15 +658,6 @@ theme_override_font_sizes/font_size = 30
 text = "Camera"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.24272, -19.5568)
-mesh = SubResource("BoxMesh_b15ne")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_64ewe")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0t6va")
