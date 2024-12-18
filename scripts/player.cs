@@ -76,6 +76,22 @@ public partial class player : Node3D
         UpdateMovement((float)delta);
         RotateJet();
         UpdateMouseLook();
+        PushObjects((float)delta);
+    }
+
+    //Try this for collision: https://www.youtube.com/watch?v=Oiiiek2gCgU
+    public void PushObjects(float delta)
+    {
+        for (int i = Jet.GetSlideCollisionCount(); i > 0; i--)
+        {
+            var collision = Jet.GetSlideCollision(i);
+            var _object = collision.GetCollider();
+
+            if (_object is Fish)
+            {
+                var character = _object as Fish;
+            }
+        }
     }
 
     public void ToggleCamera()
