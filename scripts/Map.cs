@@ -12,10 +12,9 @@ public partial class Map : Node3D
 		AddChild(timer);
 		timer.Timeout += () =>
 		{
-			var fish = fishScene.Instantiate<CharacterBody3D>();
-			fish.Scale = new Vector3(3, 3, 3);
-
+			var fish = fishScene.Instantiate<Fish>();
 			Random ran = new();
+
 			fish.Position = new Vector3(ran.Next(0, 20), ran.Next(1, 20), ran.Next(0, 20));
 			AddChild(fish);
 		};
