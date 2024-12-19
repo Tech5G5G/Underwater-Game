@@ -20,6 +20,10 @@ public partial class Map : Node3D
 			AddChild(fish);
 		};
 		timer.Start(2);
+
+		//Temp code to disable fog
+		var environment = GetNode<WorldEnvironment>("WorldEnvironment");
+		environment.Environment.VolumetricFogEnabled = false;
 	}
 
 	public override void _Process(double delta)
