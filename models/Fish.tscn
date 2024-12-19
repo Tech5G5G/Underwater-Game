@@ -45,7 +45,7 @@ shadow_mesh = SubResource("ArrayMesh_lldup")
 [sub_resource type="BoxShape3D" id="BoxShape3D_d45ij"]
 size = Vector3(0.635742, 1.58594, 4.98706)
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="RigidBody3D" type="RigidBody3D"]
 script = ExtResource("1_jk7qc")
 
 [node name="Fish" type="Node3D" parent="."]
@@ -56,6 +56,6 @@ transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
 mesh = SubResource("ArrayMesh_4u3ag")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216797, 0.292969, 0.0213623)
 shape = SubResource("BoxShape3D_d45ij")
