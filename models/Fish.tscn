@@ -49,7 +49,7 @@ size = Vector3(0.635742, 1.58594, 4.98706)
 script = ExtResource("1_jk7qc")
 
 [node name="Fish" type="Node3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 0, 0, 0)
 
 [node name="Plane" type="MeshInstance3D" parent="Fish"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
@@ -57,5 +57,5 @@ mesh = SubResource("ArrayMesh_4u3ag")
 skeleton = NodePath("")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216797, 0.292969, 0.0213623)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.876313, 0.563884, 0.161411)
 shape = SubResource("BoxShape3D_d45ij")
