@@ -30,14 +30,14 @@ volumetric_fog_density = 0.07
 volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dikv0"]
-size = Vector2(200, 200)
+size = Vector2(400, 400)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vhsh"]
 albedo_texture = ExtResource("2_2nkb0")
 heightmap_scale = 1.0
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_r2a6t"]
-data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ay80v"]
+points = PackedVector3Array(-200, 0, -200, -200, 0, 200, 200, 0, -200, 200, 0, 200)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ggne8"]
 
@@ -669,7 +669,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_r2a6t")
+shape = SubResource("ConvexPolygonShape3D_ay80v")
 
 [node name="Jet" parent="." instance=ExtResource("3_qvwbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00943, 0)
