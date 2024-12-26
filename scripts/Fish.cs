@@ -16,6 +16,9 @@ public partial class Fish : RigidBody3D
 
 		GravityScale = 0;
 		Mass = 0.3f;
+
+        ContactMonitor = true;
+        MaxContactsReported = 1;
 	}
 
     private void LookFollow(PhysicsDirectBodyState3D state, Transform3D currentTransform, Vector3 targetPosition)
@@ -39,6 +42,23 @@ public partial class Fish : RigidBody3D
 
     public override void _Process(double delta)
 	{
-		LinearVelocity = GlobalTransform.Basis * new Vector3(0, 0, -20);
+        if (forwardAxisCooldown > 0)
+        {
+            forwardAxisCooldown--;
+        }
+        else
+        {
+            if (GetContactCount() > 0 && GetCollidingBodies()[0] is CharacterBody3D)
+            {
+                forwardAxis = new(0, 0, 1);
+                forwardAxisCooldown = 300;
+            }
+            else
+            {
+                forwardAxis = new(0, 0, -1);
+            }
+        }
+
+        LinearVelocity = GlobalTransform.Basis * new Vector3(0, 0, -10);
 	}
 }
