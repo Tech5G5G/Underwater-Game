@@ -12,7 +12,7 @@ public partial class Fish : RigidBody3D
 
 	public override void _Ready()
 	{
-		jet = GetParent().GetNode<Node3D>("Jet");
+        playerWindscreen = GetParent().GetNode<Node3D>("Jet/Leveling");
 
 		GravityScale = 0;
 		Mass = 0.3f;
