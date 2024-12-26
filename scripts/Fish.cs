@@ -3,9 +3,12 @@ using System;
 
 public partial class Fish : RigidBody3D
 {
-	private float _speed = 1f;
+    private const float _speed = 0.1f;
 
-	private Node3D jet;
+    private Node3D playerWindscreen;
+
+    public Vector3 forwardAxis = new(0, 0, -1);
+    public int forwardAxisCooldown = 0;
 
 	public override void _Ready()
 	{
