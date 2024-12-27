@@ -1,0 +1,189 @@
+[gd_scene load_steps=28 format=3 uid="uid://c3d4yk66mbarl"]
+
+[ext_resource type="Script" path="res://scripts/Menu/MenuMap.cs" id="1_kh5hh"]
+[ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="2_v1w7e"]
+[ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="3_carm0"]
+[ext_resource type="PackedScene" uid="uid://bc2ywxncnthc6" path="res://scenes/jet.tscn" id="4_m8qvf"]
+[ext_resource type="Texture2D" uid="uid://ckhqq8pta3o2i" path="res://textures/Hero.png" id="5_3bnv8"]
+[ext_resource type="Script" path="res://scripts/Menu/Menu.cs" id="5_tp8uy"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_b8ulu"]
+panorama = ExtResource("2_v1w7e")
+
+[sub_resource type="Sky" id="Sky_pp7m0"]
+sky_material = SubResource("PanoramaSkyMaterial_b8ulu")
+
+[sub_resource type="Environment" id="Environment_a8150"]
+background_mode = 2
+sky = SubResource("Sky_pp7m0")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dikv0"]
+size = Vector2(400, 400)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vhsh"]
+albedo_texture = ExtResource("3_carm0")
+heightmap_scale = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ggne8"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_mfdwq"]
+density = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqdax"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_st52i"]
+material = SubResource("StandardMaterial3D_dqdax")
+size = Vector3(5, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vkeq2"]
+size = Vector3(5, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxl40"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_2nmls"]
+material = SubResource("StandardMaterial3D_rxl40")
+text = "PLAY"
+font_size = 100
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8beb"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_3fs81"]
+material = SubResource("StandardMaterial3D_s8beb")
+size = Vector3(5, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qs5rw"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_q8wgr"]
+material = SubResource("StandardMaterial3D_qs5rw")
+text = "SETTINGS"
+font_size = 100
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1mtp"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ghwb"]
+material = SubResource("StandardMaterial3D_b1mtp")
+size = Vector3(5, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_et2rs"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_sr5dq"]
+material = SubResource("StandardMaterial3D_et2rs")
+text = "EXIT"
+font_size = 100
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_uq3i4"]
+viewport_path = NodePath("Menu/Sprite3D/SubViewport")
+
+[node name="MainMenu" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
+script = ExtResource("1_kh5hh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a8150")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.0521, 0)
+mesh = SubResource("PlaneMesh_dikv0")
+surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
+
+[node name="Jet" parent="." instance=ExtResource("4_m8qvf")]
+transform = Transform3D(0.639012, 0.0686944, -0.766123, 0.0265187, 0.993445, 0.111196, 0.768739, -0.0913722, 0.633002, 8.05759, 17.467, -10.8931)
+
+[node name="CharacterBody3D" type="Node3D" parent="Jet"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Jet/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01754, -0.378324)
+mesh = SubResource("CapsuleMesh_ggne8")
+
+[node name="Leveling" type="Node3D" parent="Jet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22215, -2.07287)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Jet"]
+transform = Transform3D(0.0291534, 0.882438, 0.469525, -0.437054, -0.411191, 0.799941, 0.898963, -0.228529, 0.373685, 2.94668, 10.5398, 2.17068)
+light_energy = 16.0
+spot_range = 20.9267
+spot_angle = 38.958
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-0.994513, -0.0309007, 0.0999475, -0.0291516, 0.999396, 0.0189137, -0.100472, 0.0158963, -0.994813, 24.0235, 19.4333, -27.7105)
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.342, 37.8806, 55.9246)
+size = Vector3(202.66, 74, 126.735)
+material = SubResource("FogMaterial_mfdwq")
+
+[node name="Menu" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.61352, 0)
+script = ExtResource("5_tp8uy")
+
+[node name="PlayButton" type="MeshInstance3D" parent="Menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.8479, 19.6157, -7.54063)
+mesh = SubResource("BoxMesh_st52i")
+skeleton = NodePath("../Sprite3D")
+
+[node name="Area3D" type="Area3D" parent="Menu/PlayButton"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/PlayButton/Area3D"]
+shape = SubResource("BoxShape3D_vkeq2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Menu/PlayButton"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.101721)
+mesh = SubResource("TextMesh_2nmls")
+
+[node name="SettingsButton" type="MeshInstance3D" parent="Menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.171, 19.616, -7.541)
+mesh = SubResource("BoxMesh_3fs81")
+skeleton = NodePath("../Sprite3D")
+
+[node name="Area3D" type="Area3D" parent="Menu/SettingsButton"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/SettingsButton/Area3D"]
+shape = SubResource("BoxShape3D_vkeq2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Menu/SettingsButton"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.101721)
+mesh = SubResource("TextMesh_q8wgr")
+
+[node name="ExitButton" type="MeshInstance3D" parent="Menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.588, 19.616, -7.541)
+mesh = SubResource("BoxMesh_4ghwb")
+skeleton = NodePath("../Sprite3D")
+
+[node name="Area3D" type="Area3D" parent="Menu/ExitButton"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/ExitButton/Area3D"]
+shape = SubResource("BoxShape3D_vkeq2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Menu/ExitButton"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.101721)
+mesh = SubResource("TextMesh_sr5dq")
+
+[node name="Sprite3D" type="Sprite3D" parent="Menu"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.2387, 24.0097, -7.39279)
+flip_h = true
+pixel_size = 0.05
+texture = SubResource("ViewportTexture_uq3i4")
+
+[node name="SubViewport" type="SubViewport" parent="Menu/Sprite3D"]
+transparent_bg = true
+size = Vector2i(700, 200)
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Sprite3D/SubViewport"]
+offset_left = 33.0
+offset_top = 40.0
+offset_right = 3457.0
+offset_bottom = 677.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_3bnv8")
+expand_mode = 1
