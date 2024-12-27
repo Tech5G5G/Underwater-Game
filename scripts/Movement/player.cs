@@ -4,7 +4,7 @@ using UnderwaterGame;
 
 public partial class player : Node3D
 {
-    //Fix flying upside down turn movemen
+    //Fix flying upside down turn movement
 
     const float shiftMultiplier = 2f;
     const float sensitivity = 0.25f;
@@ -50,7 +50,7 @@ public partial class player : Node3D
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
-        FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("GameUI/FlashlightPercent");
+        FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("HUD/FlashlightPercent");
         FlashlightPercent.ValueChanged += (newValue) =>
         {
             if (newValue <= 0)
@@ -60,8 +60,8 @@ public partial class player : Node3D
 
     public override void _Input(InputEvent @event)
     {
-        if (@event is InputEventMouseMotion)
-            mousePosition = (@event as InputEventMouseMotion).Relative;
+        if (@event is InputEventMouseMotion mouseMotion)
+            mousePosition = mouseMotion.Relative;
 
         if (Input.IsActionJustPressed("toggle_camera"))
             ToggleCamera();
