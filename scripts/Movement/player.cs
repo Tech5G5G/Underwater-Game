@@ -32,6 +32,7 @@ public partial class player : Node3D
     public Camera3D TPCamera;
 
     public SpotLight3D Spotlight;
+    public SpotLight3D FPLight;
 
     public Control LevelingBars;
     public ProgressBar FlashlightPercent;
@@ -44,6 +45,7 @@ public partial class player : Node3D
 
         FPCamera = Jet.GetNode<Camera3D>("Cameras/FPCamera");
         TPCamera = Jet.GetNode<Camera3D>("Cameras/TPCamera");
+        FPLight = Jet.GetNode<SpotLight3D>("Lights/FPLight");
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
