@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dodlkyrqx6utv"]
+[gd_scene load_steps=20 format=3 uid="uid://dodlkyrqx6utv"]
 
 [ext_resource type="Script" path="res://scripts/Game/Map.cs" id="1_2mn0m"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
@@ -7,11 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bc2ywxncnthc6" path="res://scenes/jet.tscn" id="3_qvwbv"]
 [ext_resource type="Texture2D" uid="uid://bla28xtbgi8c0" path="res://textures/Flashlight.png" id="5_jt6sp"]
 [ext_resource type="Script" path="res://scripts/Movement/player.cs" id="7_kbhhu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3y7d"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8pi4y"]
-bg_color = Color(0, 1, 0, 1)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_vmto8"]
 panorama = ExtResource("1_ogeoh")
@@ -59,6 +54,9 @@ viewport_path = NodePath("Jet/Power/SubViewport")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
 script = ExtResource("1_2mn0m")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0t6va")
+
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -81,9 +79,9 @@ text = "FPS: 0"
 mesh = SubResource("PlaneMesh_dikv0")
 surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_ay80v")
 
 [node name="Jet" parent="." instance=ExtResource("3_qvwbv")]
