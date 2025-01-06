@@ -77,19 +77,12 @@ shape = SubResource("ConvexPolygonShape3D_ay80v")
 [node name="Jet" parent="." instance=ExtResource("3_qvwbv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00943, 0)
 
-[node name="CharacterBody3D" type="Node3D" parent="Jet"]
-script = ExtResource("7_kbhhu")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Jet/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01754, -0.378324)
-mesh = SubResource("CapsuleMesh_ggne8")
-
-[node name="Neck" type="Node3D" parent="Jet/CharacterBody3D"]
+[node name="Cameras" type="Node3D" parent="Jet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59864, -0.378324)
 
-[node name="Camera3D" type="Camera3D" parent="Jet/CharacterBody3D/Neck"]
+[node name="FPCamera" type="Camera3D" parent="Jet/Cameras"]
 
-[node name="ThirdPersonCamera" type="Camera3D" parent="Jet/CharacterBody3D/Neck"]
+[node name="TPCamera" type="Camera3D" parent="Jet/Cameras"]
 transform = Transform3D(1, 3.14813e-15, 4.75546e-16, -3.14813e-15, 0.955381, 0.295375, 4.75551e-16, -0.295375, 0.955381, 0, 4.06788, 11.2702)
 
 [node name="Player" type="MeshInstance3D" parent="Jet"]
