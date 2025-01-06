@@ -19,14 +19,11 @@ public partial class player : Node3D
     Vector3 direction = Vector3.Zero;
     Vector3 velocity = Vector3.Zero;
 
-    float previousSlowdown = 0f;
-
+    float previousSlowdown = 0;
     float previousUpSlowdown = 0;
     float previousDownSlowdown = 0;
-
     float previousRightSlowdown = 0;
     float previousLeftSlowdown = 0;
-
     float previousRightRollSlowdown = 0;
     float previousLeftRollSlowdown = 0;
 
