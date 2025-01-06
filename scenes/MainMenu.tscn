@@ -105,12 +105,6 @@ shape = SubResource("ConvexPolygonShape3D_gae80")
 [node name="Jet" parent="." instance=ExtResource("4_m8qvf")]
 transform = Transform3D(0.639012, 0.0686944, -0.766123, 0.0265187, 0.993445, 0.111196, 0.768739, -0.0913722, 0.633002, 8.05759, 17.467, -10.8931)
 
-[node name="CharacterBody3D" type="Node3D" parent="Jet"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Jet/CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01754, -0.378324)
-mesh = SubResource("CapsuleMesh_ggne8")
-
 [node name="Leveling" type="Node3D" parent="Jet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22215, -2.07287)
 
