@@ -4,8 +4,6 @@ using UnderwaterGame;
 
 public partial class player : Node3D
 {
-    //Fix flying upside down turn movement
-
     const float shiftMultiplier = 2f;
     const float sensitivity = 0.25f;
 
@@ -179,15 +177,21 @@ public partial class player : Node3D
         }
         Jet.RotateObjectLocal(Vector3.ModelFront, -(roll * 0.025f));
 
+        float jetZRotation = Jet.RotationDegrees.Z;
+        if (jetZRotation > 90)
+            jetZRotation = 180 - jetZRotation;
+        else if (jetZRotation < -90)
+            jetZRotation = -180 - jetZRotation;
+
         if (Input.IsActionPressed("accelerate"))
         {
-            Jet.RotateY(Mathf.DegToRad(Jet.RotationDegrees.Z * 0.025f * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
-            if (Jet.RotationDegrees.Z > 0)
+            Jet.RotateY(Mathf.DegToRad(jetZRotation * 0.025f * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
+            if (jetZRotation > 0)
             {
                 previousRightRollSlowdown = 1;
                 previousLeftRollSlowdown = 0;
             }
-            else if (Jet.RotationDegrees.Z < 0)
+            else if (jetZRotation < 0)
             {
                 previousLeftRollSlowdown = -1;
                 previousRightRollSlowdown = 0;
@@ -198,12 +202,12 @@ public partial class player : Node3D
             if (previousRightRollSlowdown > 0)
             {
                 previousRightRollSlowdown -= 0.02f;
-                Jet.RotateY(Mathf.DegToRad(previousRightRollSlowdown * 0.025f * Jet.RotationDegrees.Z * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
+                Jet.RotateY(Mathf.DegToRad(previousRightRollSlowdown * 0.025f * jetZRotation * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
             }
             if (previousLeftRollSlowdown < 0)
             {
                 previousLeftRollSlowdown += 0.02f;
-                Jet.RotateY(Mathf.DegToRad(-previousLeftRollSlowdown * 0.025f * Jet.RotationDegrees.Z * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
+                Jet.RotateY(Mathf.DegToRad(-previousLeftRollSlowdown * 0.025f * jetZRotation * (Input.IsActionPressed("speed_up") ? shiftMultiplier : 1)));
             }
         }
         else
