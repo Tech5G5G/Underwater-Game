@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b5ymete5283h8"
-path="res://.godot/imported/Fish.glb-79886b67de2badb929cbb6dbf1ba708b.scn"
+uid="uid://j542jw8xj7p0"
+path="res://.godot/imported/Green Fish.glb-e1a77cd5b7a12e6425383901bc4367e9.scn"
 
 [deps]
 
-source_file="res://models/Fish.glb"
-dest_files=["res://.godot/imported/Fish.glb-79886b67de2badb929cbb6dbf1ba708b.scn"]
+source_file="res://models/Green Fish.glb"
+dest_files=["res://.godot/imported/Green Fish.glb-e1a77cd5b7a12e6425383901bc4367e9.scn"]
 
 [params]
 
@@ -31,6 +31,17 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.002": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/Green.tres"
+},
+"Material.003": {
+"use_external/enabled": true,
+"use_external/path": "res://materials/Green.tres"
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
