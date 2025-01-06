@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://b21gxybufjofc"]
+
+[ext_resource type="Script" path="res://scripts/UI/SettingsWindow.cs" id="1_1hv5h"]
+
+[node name="Window" type="Window"]
+disable_3d = true
+title = "Settings"
+initial_position = 2
+size = Vector2i(307, 300)
+min_size = Vector2i(307, 300)
+script = ExtResource("1_1hv5h")
+
+[node name="Tabs" type="TabBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+current_tab = 0
+clip_tabs = false
+tab_count = 4
+tab_0/title = "Difficuly"
+tab_1/title = "Bindings"
+tab_2/title = "Mouse"
+tab_3/title = "Video"
