@@ -9,8 +9,13 @@ public partial class Map : Node3D
 
     private PackedScene settingsWindow = GD.Load<PackedScene>("res://scenes/SettingsWindow.tscn");
 
-	public override void _Ready()
+    public override void _Ready()
 	{
+        //Activate window like this
+        //var window = settingsWindow.Instantiate<Window>();
+        //AddChild(window);
+        //window.Show();
+
         Random ran = new();
         for (int i = 20; i > 0; i--)
 		{
