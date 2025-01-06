@@ -1,11 +1,11 @@
 [gd_scene load_steps=28 format=3 uid="uid://c3d4yk66mbarl"]
 
-[ext_resource type="Script" path="res://scripts/Menu/MenuMap.cs" id="1_kh5hh"]
+[ext_resource type="Script" path="res://scripts/Game/Map.cs" id="1_kh5hh"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="2_v1w7e"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="3_carm0"]
 [ext_resource type="PackedScene" uid="uid://bc2ywxncnthc6" path="res://scenes/jet.tscn" id="4_m8qvf"]
 [ext_resource type="Texture2D" uid="uid://ckhqq8pta3o2i" path="res://textures/Hero.png" id="5_3bnv8"]
-[ext_resource type="Script" path="res://scripts/Menu/Menu.cs" id="5_tp8uy"]
+[ext_resource type="Script" path="res://scripts/Game/Menu.cs" id="5_tp8uy"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_b8ulu"]
 panorama = ExtResource("2_v1w7e")
@@ -26,7 +26,8 @@ size = Vector2(400, 400)
 albedo_texture = ExtResource("3_carm0")
 heightmap_scale = 1.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ggne8"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gae80"]
+points = PackedVector3Array(-200, 0, -200, -200, 0, 200, 200, 0, -200, 200, 0, 200)
 
 [sub_resource type="FogMaterial" id="FogMaterial_mfdwq"]
 density = 0.1
