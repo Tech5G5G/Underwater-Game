@@ -92,10 +92,15 @@ script = ExtResource("1_kh5hh")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_a8150")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.0521, 0)
 mesh = SubResource("PlaneMesh_dikv0")
 surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_gae80")
 
 [node name="Jet" parent="." instance=ExtResource("4_m8qvf")]
 transform = Transform3D(0.639012, 0.0686944, -0.766123, 0.0265187, 0.993445, 0.111196, 0.768739, -0.0913722, 0.633002, 8.05759, 17.467, -10.8931)
