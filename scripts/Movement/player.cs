@@ -41,15 +41,17 @@ public partial class player : Node3D
     public override void _Ready()
     {
         Jet = GetParent<CharacterBody3D>();
-        Spotlight = Jet.GetNode<SpotLight3D>("SpotLight");
 
         FPCamera = Jet.GetNode<Camera3D>("Cameras/FPCamera");
         TPCamera = Jet.GetNode<Camera3D>("Cameras/TPCamera");
+
+        Spotlight = Jet.GetNode<SpotLight3D>("Lights/SpotLight");
         FPLight = Jet.GetNode<SpotLight3D>("Lights/FPLight");
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
         FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("HUD/FlashlightPercent");
+        FlashlightPercent = Jet.GetNode<ProgressBar>("Power/SubViewport/Control/FlashlightPercent");
         FlashlightPercent.ValueChanged += (newValue) =>
         {
             if (newValue <= 0)
@@ -94,16 +96,18 @@ public partial class player : Node3D
     public void ToggleFlashlight()
     {
         bool toggle = Spotlight.Visible;
-        if (!toggle && FlashlightPercent.Value == 100)
-        {
-            Spotlight.Visible = !toggle;
 
+        if (FlashlightPercent.Value != 100 && !toggle)
+            return;
+
+        Spotlight.Visible = !toggle;
             FlashlightTimer.Stop();
             FlashlightTimer.Dispose();
-            FlashlightTimer = new();
+        FlashlightTimer = new() { OneShot = false };
             AddChild(FlashlightTimer);
 
-            FlashlightTimer.OneShot = false;
+        if (!toggle)
+        {
             FlashlightTimer.Timeout += () =>
             {
                 if (FlashlightPercent.Value > 0)
@@ -113,16 +117,8 @@ public partial class player : Node3D
             };
             FlashlightTimer.Start(0.3);
         }
-        else if (toggle)
+        else
         {
-            Spotlight.Visible = !toggle;
-
-            FlashlightTimer.Stop();
-            FlashlightTimer.Dispose();
-            FlashlightTimer = new();
-            AddChild(FlashlightTimer);
-
-            FlashlightTimer.OneShot = false;
             FlashlightTimer.Timeout += () =>
             {
                 if (FlashlightPercent.Value < 100)
