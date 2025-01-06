@@ -98,12 +98,21 @@ light_energy = 16.0
 spot_range = 21.0109
 spot_angle = 17.3277
 
-[node name="SpotLight" type="SpotLight3D" parent="Jet"]
-transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, 0.807352, -4.24681)
+[node name="SpotLight" type="SpotLight3D" parent="Jet/Lights"]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -1.49012e-07, -0.475415, -0.442964)
 visible = false
 light_energy = 16.0
-spot_range = 138.184
-spot_angle = 51.123
+light_volumetric_fog_energy = 0.0
+distance_fade_begin = 4096.0
+distance_fade_length = 4096.0
+spot_range = 54.3965
+spot_angle = 27.6095
+
+[node name="FPLight" type="SpotLight3D" parent="Jet/Lights"]
+transform = Transform3D(-1, -5.96046e-08, 1.04308e-07, 1.04308e-07, -5.96046e-08, 1, -5.96046e-08, 1, 5.96046e-08, 0.0294852, 1.74666, -1.32913)
+light_volumetric_fog_energy = 0.0
+spot_range = 1.55956
+spot_angle = 67.0588
 
 [node name="Leveling" type="Sprite3D" parent="Jet"]
 transform = Transform3D(0.45096, 0, 0, 0, 0.526298, 0, 0, 0, 2.41052, -0.0223941, 1.52632, -1.64479)
