@@ -30,8 +30,9 @@ public partial class player : Node3D
     float previousLeftRollSlowdown = 0;
 
     public CharacterBody3D Jet;
-    public Camera3D Cam;
-    public Camera3D ThirdCam;
+    public Camera3D FPCamera;
+    public Camera3D TPCamera;
+
     public SpotLight3D Spotlight;
 
     public Control LevelingBars;
@@ -42,9 +43,9 @@ public partial class player : Node3D
     {
         Jet = GetParent<CharacterBody3D>();
         Spotlight = Jet.GetNode<SpotLight3D>("SpotLight");
-        Cam = GetNode<Camera3D>("Neck/Camera3D");
-        ThirdCam = GetNode<Camera3D>("Neck/ThirdPersonCamera");
 
+        FPCamera = Jet.GetNode<Camera3D>("Cameras/FPCamera");
+        TPCamera = Jet.GetNode<Camera3D>("Cameras/TPCamera");
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
@@ -80,9 +81,11 @@ public partial class player : Node3D
 
     public void ToggleCamera()
     {
-        bool toggle = Cam.Current;
-        Cam.Current = !toggle;
-        ThirdCam.Current = toggle;
+        bool toggle = FPCamera.Current;
+        FPCamera.Current = !toggle;
+        TPCamera.Current = toggle;
+
+        Spotlight.LightVolumetricFogEnergy = toggle.ToFloat();
     }
 
     public void ToggleFlashlight()
@@ -255,6 +258,9 @@ public partial class player : Node3D
 
     public void UpdateMouseLook()
     {
+        if (!FPCamera.Current)
+            return;
+
         mousePosition *= sensitivity;
         var yaw = mousePosition.X;
         var pitch = mousePosition.Y;
@@ -266,7 +272,7 @@ public partial class player : Node3D
         yaw = Mathf.Clamp(yaw, -90 - totalYaw, 90 - totalYaw);
         totalYaw += yaw;
 
-        Cam.RotateY(Mathf.DegToRad(-yaw));
-        Cam.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
+        FPCamera.RotateY(Mathf.DegToRad(-yaw));
+        FPCamera.RotateObjectLocal(new Vector3(1, 0, 0), Mathf.DegToRad(-pitch));
     }
 }
