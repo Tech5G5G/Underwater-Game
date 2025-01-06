@@ -16,8 +16,6 @@ public partial class Fish : RigidBody3D
         playerWindscreen = GetParent().GetNode<Node3D>("Jet/Leveling");
 
         GravityScale = 0;
-        Mass = 0.3f;
-
         ContactMonitor = true;
         MaxContactsReported = 1;
     }
@@ -31,36 +29,31 @@ public partial class Fish : RigidBody3D
         AngularVelocity = forwardDir.Cross(targetDir) * localSpeed / state.Step;
     }
 
-    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
-    {
-        LookFollow(state, GlobalTransform, playerWindscreen.GlobalTransform.Origin);
-    }
+    public override void _IntegrateForces(PhysicsDirectBodyState3D state) => LookFollow(state, GlobalTransform, playerWindscreen.GlobalTransform.Origin);
 
     public override void _Process(double delta)
     {
-        if (forwardAxisCooldown > 0)
+        if (GetContactCount() > 0 && GetCollidingBodies()[0] is CharacterBody3D)
         {
-            forwardAxisCooldown--;
-        }
-        else
-        {
-            if (GetContactCount() > 0 && GetCollidingBodies()[0] is CharacterBody3D)
-            {
-                forwardAxis = new(0, 0, 1);
-                forwardAxisCooldown = 300;
+            forwardAxis = new(0, 0, 1);
+            forwardAxisCooldown = 300;
             if (healthCooldown && player.HealthPower is not null)
             {
                 player.HealthPower.Value--;
                 healthCooldown = false;
             }
             return;
-            }
-            else
-            {
-                forwardAxis = new(0, 0, -1);
-            }
+        }
+
+        LinearVelocity = GlobalTransform.Basis * new Vector3(0, 0, -20);
+
+        if (forwardAxisCooldown > 0)
+        {
+            forwardAxisCooldown--;
+            return;
         }
 
         healthCooldown = true;
+        forwardAxis = new(0, 0, -1);
     }
 }
