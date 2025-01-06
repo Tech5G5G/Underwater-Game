@@ -65,39 +65,7 @@ offset_right = 51.0
 offset_bottom = 29.0
 text = "FPS: 0"
 
-[node name="FlashlightPercent" type="ProgressBar" parent="HUD"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 62.0
-offset_top = -33.0
-offset_right = 134.0
-offset_bottom = -6.0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/background = SubResource("StyleBoxEmpty_x3y7d")
-theme_override_styles/fill = SubResource("StyleBoxFlat_8pi4y")
-step = 1.0
-value = 100.0
-
-[node name="TextureRect" type="TextureRect" parent="HUD"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = -33.0
-offset_right = 62.0
-offset_bottom = -6.0
-grow_vertical = 0
-texture = ExtResource("5_jt6sp")
-expand_mode = 1
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0t6va")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_dikv0")
 surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
 
