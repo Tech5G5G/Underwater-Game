@@ -35,6 +35,8 @@ public partial class player : Node3D
     public SpotLight3D FPLight;
 
     public Control LevelingBars;
+
+    public static ProgressBar HealthPower { get; set; }
     public ProgressBar FlashlightPercent;
     public Timer FlashlightTimer = new();
 
@@ -50,7 +52,7 @@ public partial class player : Node3D
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
-        FlashlightPercent = Jet.GetParent().GetNode<ProgressBar>("HUD/FlashlightPercent");
+        HealthPower = Jet.GetNode<ProgressBar>("HP/SubViewport/Control/HealthPower");
         FlashlightPercent = Jet.GetNode<ProgressBar>("Power/SubViewport/Control/FlashlightPercent");
         FlashlightPercent.ValueChanged += (newValue) =>
         {
