@@ -15,6 +15,7 @@ public partial class player : Node3D
     float totalPitch = 0f;
     float totalYaw = 0f;
 
+    bool movementAllowed = true;
     Vector3 direction = Vector3.Zero;
     Vector3 velocity = Vector3.Zero;
 
@@ -53,7 +54,10 @@ public partial class player : Node3D
         FlashlightPercent.ValueChanged += (newValue) =>
         {
             if (newValue <= 0)
+            {
                 ToggleFlashlight();
+                movementAllowed = FPLight.Visible = Leveling.Visible = false;
+            }
         };
     }
 
@@ -68,7 +72,7 @@ public partial class player : Node3D
         if (Input.IsActionJustPressed("toggle_flashlight"))
             ToggleFlashlight();
 
-        if (Input.IsActionJustPressed("reset_roll"))
+        if (Input.IsActionJustPressed("reset_roll") && movementAllowed)
             Jet.Rotation = new Vector3(Jet.Rotation.X, Jet.Rotation.Y, 0);
     }
 
@@ -125,7 +129,10 @@ public partial class player : Node3D
                 if (FlashlightPercent.Value < 100)
                     FlashlightPercent.Value += 1;
                 else
+                {
+                    movementAllowed = FPLight.Visible = Leveling.Visible = true;
                     FlashlightTimer.Stop();
+                }
             };
             FlashlightTimer.Start(0.1);
         }
@@ -133,6 +140,14 @@ public partial class player : Node3D
 
     public void RotateJet()
     {
+        if (!movementAllowed)
+        {
+            previousSlowdown = previousUpSlowdown = previousDownSlowdown = previousRightSlowdown = previousLeftSlowdown = previousRightRollSlowdown = previousLeftRollSlowdown = 0;
+            Jet.Velocity = Vector3.Zero;
+            Jet.MoveAndSlide();
+            return;
+        }
+
         previousUpSlowdown = previousUpSlowdown > 0 ? previousUpSlowdown : Input.IsActionJustReleased("up") ? 1 : 0;
         previousDownSlowdown = previousDownSlowdown < 0 ? previousDownSlowdown : Input.IsActionJustReleased("down") ? -1 : 0;
         previousRightSlowdown = previousRightSlowdown > 0 ? previousRightSlowdown : Input.IsActionJustReleased("turn_right") ? 1 : 0;
@@ -225,6 +240,9 @@ public partial class player : Node3D
 
     public void UpdateMovement(float delta)
     {
+        if (!movementAllowed)
+            return;
+
         direction = GlobalTransform.Basis * new Vector3(0, 0, -Input.IsActionPressed("accelerate").ToFloat());
         var offset = direction * acceleration * velMultiplier * delta + velocity * deceleration * velMultiplier * delta;
         if (direction == Vector3.Zero)
