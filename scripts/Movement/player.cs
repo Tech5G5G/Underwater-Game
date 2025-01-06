@@ -6,7 +6,6 @@ public partial class player : Node3D
 {
     const float shiftMultiplier = 2f;
     const float sensitivity = 0.25f;
-
     const float velMultiplier = 4f;
     const float acceleration = 30f;
     const float deceleration = -10f;
@@ -34,6 +33,7 @@ public partial class player : Node3D
     public SpotLight3D Spotlight;
     public SpotLight3D FPLight;
 
+    public Sprite3D Leveling;
     public Control LevelingBars;
 
     public static ProgressBar HealthPower { get; set; }
@@ -49,6 +49,8 @@ public partial class player : Node3D
 
         Spotlight = Jet.GetNode<SpotLight3D>("Lights/SpotLight");
         FPLight = Jet.GetNode<SpotLight3D>("Lights/FPLight");
+
+        Leveling = Jet.GetNode<Sprite3D>("Leveling");
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
@@ -103,10 +105,10 @@ public partial class player : Node3D
             return;
 
         Spotlight.Visible = !toggle;
-            FlashlightTimer.Stop();
-            FlashlightTimer.Dispose();
+        FlashlightTimer.Stop();
+        FlashlightTimer.Dispose();
         FlashlightTimer = new() { OneShot = false };
-            AddChild(FlashlightTimer);
+        AddChild(FlashlightTimer);
 
         if (!toggle)
         {
