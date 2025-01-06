@@ -3,9 +3,10 @@ using System;
 
 public partial class Fish : RigidBody3D
 {
-    private const float _speed = 0.1f;
+    const float _speed = 0.1f;
 
-    private Node3D playerWindscreen;
+    Node3D playerWindscreen;
+    bool healthCooldown = true;
 
     public Vector3 forwardAxis = new(0, 0, -1);
     public int forwardAxisCooldown = 0;
@@ -47,6 +48,12 @@ public partial class Fish : RigidBody3D
             {
                 forwardAxis = new(0, 0, 1);
                 forwardAxisCooldown = 300;
+            if (healthCooldown && player.HealthPower is not null)
+            {
+                player.HealthPower.Value--;
+                healthCooldown = false;
+            }
+            return;
             }
             else
             {
@@ -54,6 +61,6 @@ public partial class Fish : RigidBody3D
             }
         }
 
-        LinearVelocity = GlobalTransform.Basis * new Vector3(0, 0, -10);
+        healthCooldown = true;
     }
 }
