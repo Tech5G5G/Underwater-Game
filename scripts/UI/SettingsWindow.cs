@@ -48,10 +48,13 @@ public partial class SettingsWindow : Window
 	public Control RadioButtons;
 	public ItemList Bindings;
 	public Control Mouse;
+    public Control Video;
 
 	public HSlider Sensitivity;
 	public TextEdit MouseSensitivity;
+    public CheckBox InvertMouse;
 	public Label DifficultyExplainer;
+    public OptionButton WindowMode;
 
 	public override void _Ready()
 	{
