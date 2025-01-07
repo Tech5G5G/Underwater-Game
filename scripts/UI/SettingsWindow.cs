@@ -202,4 +202,15 @@ public partial class SettingsWindow : Window
 		if (@event is InputEventKey input && input.Keycode == Key.Enter && GuiGetFocusOwner() is TextEdit)
 			GetViewport().SetInputAsHandled();
 	}
+
+	public static void ToggleFullscreen()
+    {
+        var mode = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen ? DisplayServer.WindowMode.Windowed : DisplayServer.WindowMode.ExclusiveFullscreen;
+        DisplayServer.WindowSetMode(mode);
+
+        var settings = GameSettings.FromStaticSettings();
+        settings.WindowMode = mode == DisplayServer.WindowMode.ExclusiveFullscreen ? 0 : 1;
+        GameSettings.SaveSettings(settings);
+        GameSettings.WindowModeSetting = settings.WindowMode;
+    }
 }

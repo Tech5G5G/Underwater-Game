@@ -30,20 +30,6 @@ public partial class HUD : Control
             Input.MouseMode = Input.MouseModeEnum.Visible;
             GetTree().Paused = true;
         }
-
-        if (Input.IsActionJustPressed("toggle_fullscreen"))
-            _ToggleFullscreen();
-    }
-
-    public static void _ToggleFullscreen()
-    {
-        var mode = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen ? DisplayServer.WindowMode.Windowed : DisplayServer.WindowMode.ExclusiveFullscreen;
-        DisplayServer.WindowSetMode(mode);
-
-        var settings = GameSettings.FromStaticSettings();
-        settings.WindowMode = mode == DisplayServer.WindowMode.ExclusiveFullscreen ? 0 : 1;
-        GameSettings.SaveSettings(settings);
-        GameSettings.WindowModeSetting = settings.WindowMode;
     }
 
     public override void _Process(double delta)
