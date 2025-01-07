@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkn2fgus4n3hv"]
+
+[ext_resource type="Script" path="res://scripts/Movement/Fish.cs" id="1_exy0j"]
+[ext_resource type="Texture2D" uid="uid://bfkp1h24hjpoo" path="res://textures/BotFish.png" id="2_a4fwa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d45ij"]
+size = Vector3(7.5708, 2.76028, 0.191185)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+script = ExtResource("1_exy0j")
+
+[node name="Fish" type="Sprite3D" parent="."]
+transform = Transform3D(-2.75, 0, -2.26494e-07, 0, 1.5, 0, 4.15238e-07, 0, -1.5, 0, 0.2237, 0)
+texture = ExtResource("2_a4fwa")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0136348, 0.224197, -0.0024395)
+shape = SubResource("BoxShape3D_d45ij")
