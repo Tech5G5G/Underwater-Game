@@ -109,11 +109,20 @@ public partial class SettingsWindow : Window
 
 		(Sensitivity = (Mouse = GetNode<Control>("View/Mouse")).GetNode<HSlider>("Sensitivity")).ValueChanged += (value) =>
 		{
+            float sensitivity = 0.25f * ((float)value / 100f);
+
 			if (GuiGetFocusOwner() is not TextEdit)
 			{
 				var sensitivity = 0.25f * (value / 100);
 				MouseSensitivity.Text = value.ToString();
-			}
+
+            var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
+            var settings = GameSettings.FromStaticSettings();
+            settings.MouseSensitivity = sensitivity;
+            file.StorePascalString(JsonSerializer.Serialize(settings));
+            file.Close();
+
+            GameSettings.MouseSensitivitySetting = sensitivity;
 		};
 		(MouseSensitivity = Mouse.GetNode<TextEdit>("MouseSensitivity")).TextChanged += () =>
 		{
