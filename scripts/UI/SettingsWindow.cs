@@ -148,6 +148,18 @@ public partial class SettingsWindow : Window
         };
 		MouseSensitivity.FocusExited += () => MouseSensitivity.Text = Sensitivity.Value.ToString();
 
+        (WindowMode = (Video = GetNode<Control>("View/Video")).GetNode<OptionButton>("WindowMode")).ItemSelected += (index) =>
+        {
+            var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
+            var settings = GameSettings.FromStaticSettings();
+            settings.WindowMode = (int)index;
+            file.StorePascalString(JsonSerializer.Serialize(settings));
+            file.Close();
+
+            DisplayServer.WindowSetMode(index == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
+            GameSettings.WindowModeSetting = settings.WindowMode;
+        };
+
 		Bindings = GetNode<ItemList>("View/Bindings");
 		DifficultyExplainer = RadioButtons.GetNode<Label>("DifficultyExplainer");
 		this.CloseRequested += () => Hide();
