@@ -2,6 +2,45 @@ using Godot;
 using System;
 using System.Text.Json;
 
+public enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard,
+    Nightmare
+}
+
+public class GameSettings
+{
+    public bool InvertMouse { get; set; }
+    public float MouseSensitivity { get; set; }
+    public int WindowMode { get; set; }
+    public int Difficulty { get; set; }
+
+    public static bool InvertMouseSetting { get; set; }
+    public static float MouseSensitivitySetting { get; set; }
+    public static int WindowModeSetting { get; set; }
+    public static int DifficultySetting { get; set; }
+
+    public static GameSettings FromStaticSettings() => new()
+    {
+        InvertMouse = InvertMouseSetting,
+        MouseSensitivity = MouseSensitivitySetting,
+        WindowMode = WindowModeSetting,
+        Difficulty = DifficultySetting
+    };
+
+    public static void SaveSettings(GameSettings settings)
+    {
+        throw new NotImplementedException("IMPLEMENT THIS ON THE BUS!!!");
+    }
+
+    public static void LoadSettings()
+    {
+        throw new NotImplementedException("IMPLEMENT THIS ON THE BUS!!!");
+    }
+}
+
 public partial class SettingsWindow : Window
 {
 	public TabBar Tabs;
