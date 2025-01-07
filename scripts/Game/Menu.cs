@@ -119,7 +119,7 @@ public partial class Menu : Node3D
     public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseMotion mouseMotion && moveCamera)
-            mousePosition = mouseMotion.Relative;
+            mousePosition = GameSettings.InvertMouseSetting ? -mouseMotion.Relative : mouseMotion.Relative;
 
         if (Input.IsActionJustPressed("toggle_fullscreen"))
             HUD._ToggleFullscreen();
