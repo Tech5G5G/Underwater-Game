@@ -136,6 +136,16 @@ public partial class SettingsWindow : Window
 			value = (int)Mathf.Round(value / 5) * 5;
 			Sensitivity.Value = value;
 		};
+        (InvertMouse = Mouse.GetNode<CheckBox>("InvertMouse")).ButtonUp += () =>
+        {
+            var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
+            var settings = GameSettings.FromStaticSettings();
+            settings.InvertMouse = InvertMouse.ButtonPressed;
+            file.StorePascalString(JsonSerializer.Serialize(settings));
+            file.Close();
+
+            GameSettings.InvertMouseSetting = InvertMouse.ButtonPressed;
+        };
 		MouseSensitivity.FocusExited += () => MouseSensitivity.Text = Sensitivity.Value.ToString();
 
 		Bindings = GetNode<ItemList>("View/Bindings");
