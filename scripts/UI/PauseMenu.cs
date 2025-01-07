@@ -3,37 +3,26 @@ using System;
 
 public partial class PauseMenu : Control
 {
-    public Control Keybinds;
-    public TextureRect Logo;
-
-    public Button ToggleFPS;
-    public Button ToggleFullscreen;
-    public Button ShowKeybinds;
+    public Button Resume;
+    public Button List;
+    public Button Settings;
     public Button Menu;
     public Button Exit;
 
+    PackedScene settingsWindow = GD.Load<PackedScene>("res://scenes/SettingsWindow.tscn");
+
     public override void _Ready()
-	{
-        GD.Print("ADD SETTINGS BUTTON ON THE BUS!!!");
-
-        Keybinds = GetNode<Control>("Keybinds");
-        Logo = GetNode<TextureRect>("TextureRect");
-
-        ToggleFPS = GetNode<Button>("ToggleFPS");
-        ToggleFPS.ButtonUp += () => HUD.FPSCounter.Visible = !HUD.FPSCounter.Visible;
-
-        ToggleFullscreen = GetNode<Button>("ToggleFullscreen");
-        ToggleFullscreen.ButtonUp += () => HUD._ToggleFullscreen();
-
-        ShowKeybinds = GetNode<Button>("ShowKeybinds");
-        ShowKeybinds.ButtonUp += () =>
+    {
+        (Resume = GetNode<Button>("Resume")).ButtonUp += () => CloseMenu();
+        (List = GetNode<Button>("List")).ButtonUp += () => {/*Show research list here*/};
+        (Exit = GetNode<Button>("Exit")).ButtonUp += () => GetTree().Quit();
+        (Settings = GetNode<Button>("Settings")).ButtonUp += () =>
         {
-            Keybinds.Visible = true;
-            Logo.Visible = Logo.Visible = ToggleFPS.Visible = ToggleFullscreen.Visible = ShowKeybinds.Visible = Exit.Visible = false;
+            var window = settingsWindow.Instantiate<Window>();
+            AddChild(window);
+            window.Show();
         };
-
-        Menu = GetNode<Button>("Menu");
-        Menu.ButtonUp += () =>
+        (Menu = GetNode<Button>("Menu")).ButtonUp += () =>
         {
             player.HealthPower = null;
             var tree = GetTree();
@@ -41,29 +30,20 @@ public partial class PauseMenu : Control
             tree.Paused = false;
         };
 
-        Exit = GetNode<Button>("Exit");
-        Exit.ButtonUp += () => GetTree().Quit();
-
         this.ProcessMode = ProcessModeEnum.Always;
     }
 
     public override void _Input(InputEvent @event)
     {
         if (Input.IsActionJustPressed("pause"))
-        {
-            if (Keybinds.Visible)
-            {
-                HUD.OpenMenu = false;
-                Keybinds.Visible = false;
-                Logo.Visible = Logo.Visible = ToggleFPS.Visible = ToggleFullscreen.Visible = ShowKeybinds.Visible = Menu.Visible = Exit.Visible = true;
-            }
-            else
-            {
-                Input.MouseMode = Input.MouseModeEnum.Captured;
-                GetTree().Paused = false;
-                HUD.OpenMenu = false;
-                Free();
-            }
-        }
+            CloseMenu();
+    }
+
+    private void CloseMenu()
+    {
+        Input.MouseMode = Input.MouseModeEnum.Captured;
+        GetTree().Paused = false;
+        HUD.OpenMenu = false;
+        Free();
     }
 }
