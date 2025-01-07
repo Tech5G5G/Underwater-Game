@@ -1,6 +1,14 @@
 using Godot;
 using System;
 
+public enum FishType
+{
+    Default,
+    QuickBoi,
+    Epik,
+    NextBot
+}
+
 public partial class Fish : RigidBody3D
 {
     const float _speed = 0.1f;
