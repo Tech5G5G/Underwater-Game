@@ -213,3 +213,4 @@ item_count = 2
 popup/item_0/text = "Fullscreen"
 popup/item_0/id = 1
 popup/item_1/text = "Windowed"
+popup/item_1/id = 1
