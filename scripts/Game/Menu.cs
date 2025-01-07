@@ -17,13 +17,14 @@ public partial class Menu : Node3D
 
     Vector2 mousePosition = Vector2.Zero;
     public Camera3D camera;
-    private bool moveCamera = true;
+    bool moveCamera = true;
 
-    private PackedScene loadingScene = GD.Load<PackedScene>("res://scenes/LoadingScreen.tscn");
-    public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
+    PackedScene loadingScene = GD.Load<PackedScene>("res://scenes/LoadingScreen.tscn");
+    PackedScene settingsWindow = GD.Load<PackedScene>("res://scenes/SettingsWindow.tscn");
+    PackedScene PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 
     public override void _Ready()
-	{
+    {
         camera = GetParent().GetNode<Camera3D>("Camera");
 
         playButton = this.GetNode<MeshInstance3D>("PlayButton");
@@ -67,9 +68,9 @@ public partial class Menu : Node3D
 
             settingsButtonMaterial.AlbedoColor = Colors.Gray;
 
-            AddChild(PauseMenuScene.Instantiate<PauseMenu>());
-            Input.MouseMode = Input.MouseModeEnum.Visible;
-            GetTree().Paused = true;
+            var window = settingsWindow.Instantiate<Window>();
+            AddChild(window);
+            window.Show();
         };
 
         exitButton = this.GetNode<MeshInstance3D>("ExitButton");
