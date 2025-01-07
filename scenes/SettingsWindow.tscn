@@ -11,6 +11,7 @@ title = "Settings"
 initial_position = 2
 size = Vector2i(307, 300)
 min_size = Vector2i(307, 300)
+keep_title_visible = true
 script = ExtResource("1_1hv5h")
 
 [node name="Tabs" type="TabBar" parent="."]
@@ -44,7 +45,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.411765)
 
 [node name="RadioButtons" type="Control" parent="View"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,6 +62,7 @@ button_group = ExtResource("2_7sfvg")
 text = "Easy"
 
 [node name="Normal" type="CheckBox" parent="View/RadioButtons"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 45.0
 offset_right = 92.0
@@ -71,6 +72,7 @@ button_group = ExtResource("2_7sfvg")
 text = "Normal"
 
 [node name="Hard" type="CheckBox" parent="View/RadioButtons"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 85.0
 offset_right = 72.0
@@ -79,6 +81,7 @@ button_group = ExtResource("2_7sfvg")
 text = "Hard"
 
 [node name="Nightmare" type="CheckBox" parent="View/RadioButtons"]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 125.0
 offset_right = 117.0
@@ -88,12 +91,16 @@ text = "Nightmare
 "
 
 [node name="DifficultyExplainer" type="Label" parent="View/RadioButtons"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 180.0
-offset_right = 288.0
-offset_bottom = 255.0
-text = "Enemy damage :  1:100
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -120.0
+offset_right = 291.0
+offset_bottom = -45.0
+grow_vertical = 0
+text = "Enemy damage:  1:100
 Flashlight drainage: 1% every 0.3 sec
 Power recovery: 1% every 0.1 sec
 "
@@ -140,6 +147,7 @@ item_20/text = "Toggle Fullscreen"
 item_21/text = "F11"
 
 [node name="Mouse" type="Control" parent="View"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,3 +190,26 @@ context_menu_enabled = false
 shortcut_keys_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
+
+[node name="Video" type="Control" parent="View"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WindowMode" type="OptionButton" parent="View/Video"]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 20.0
+selected = 0
+item_count = 2
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 1
+popup/item_1/text = "Windowed"
