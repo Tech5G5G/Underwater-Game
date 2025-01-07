@@ -182,7 +182,7 @@ public partial class SettingsWindow : Window
 				break;
 			case Difficulty.Normal:
 				RadioButtons.GetNode<Button>("Normal").ButtonPressed = true;
-				DifficultyExplainer.Text = "Enemy damage:  1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec";
+				DifficultyExplainer.Text = "Enemy damage: 1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec";
 				break;
 			case Difficulty.Hard:
 				RadioButtons.GetNode<Button>("Hard").ButtonPressed = true;
