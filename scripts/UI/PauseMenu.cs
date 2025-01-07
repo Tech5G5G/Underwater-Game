@@ -14,6 +14,8 @@ public partial class PauseMenu : Control
 
     public override void _Ready()
 	{
+        GD.Print("ADD SETTINGS BUTTON ON THE BUS!!!");
+
         Keybinds = GetNode<Control>("Keybinds");
         Logo = GetNode<TextureRect>("TextureRect");
 
@@ -33,6 +35,7 @@ public partial class PauseMenu : Control
         Menu = GetNode<Button>("Menu");
         Menu.ButtonUp += () =>
         {
+            player.HealthPower = null;
             var tree = GetTree();
             tree.ChangeSceneToFile("res://scenes/MainMenu.tscn");
             tree.Paused = false;
