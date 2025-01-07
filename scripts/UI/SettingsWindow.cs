@@ -84,21 +84,27 @@ public partial class SettingsWindow : Window
 
 		(RadioButtons = GetNode<Control>("View/RadioButtons")).GetNode<Button>("Easy").ButtonGroup.Pressed += (selected) =>
 		{
-			switch (selected.Name)
+            DifficultyExplainer.Text = (string)selected.Name switch
 			{
-				case "Easy":
-					DifficultyExplainer.Text = "Enemy damage :  1:200\nFlashlight drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec";
-					break;
-				case "Normal":
-					DifficultyExplainer.Text = "Enemy damage :  1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec";
-					break;
-				case "Hard":
-					DifficultyExplainer.Text = "Enemy damage :  1:75\nFlashlight drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec";
-					break;
-				case "Nightmare":
-					DifficultyExplainer.Text = "Enemy damage :  1:50\nFlashlight drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec";
-					break;
-			}
+                "Easy" => "Enemy damage: 1:200\nFlashlight drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec",
+                "Hard" => "Enemy damage: 1:75\nFlashlight drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec",
+                "Nightmare" => "Enemy damage: 1:50\nFlashlight drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec",
+                _ => "Enemy damage: 1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec"
+            };
+
+            var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
+            var settings = GameSettings.FromStaticSettings();
+            settings.Difficulty = (string)selected.Name switch
+            {
+                "Easy" => (int)Difficulty.Easy,
+                "Hard" => (int)Difficulty.Hard,
+                "Nightmare" => (int)Difficulty.Nightmare,
+                _ => (int)Difficulty.Normal
+            }; ;
+            file.StorePascalString(JsonSerializer.Serialize(settings));
+            file.Close();
+
+            GameSettings.DifficultySetting = settings.Difficulty;
 		};
 
 		(Sensitivity = (Mouse = GetNode<Control>("View/Mouse")).GetNode<HSlider>("Sensitivity")).ValueChanged += (value) =>
