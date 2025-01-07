@@ -11,7 +11,7 @@ public enum FishType
 
 public partial class Fish : RigidBody3D
 {
-    const float _speed = 0.1f;
+    public FishType Type { get; set; }
     float speed = 15;
 
     Node3D playerWindscreen;
@@ -29,6 +29,20 @@ public partial class Fish : RigidBody3D
         GravityScale = 0;
         ContactMonitor = true;
         MaxContactsReported = 1;
+
+        switch (Type)
+        {
+            case FishType.QuickBoi:
+                speed = 25;
+                break;
+            case FishType.Epik:
+                damage = 200;
+                break;
+            case FishType.NextBot:
+                speed = 25;
+                damage = 200;
+                break;
+        }
     }
 
     private void LookFollow(PhysicsDirectBodyState3D state, Transform3D currentTransform, Vector3 targetPosition)
