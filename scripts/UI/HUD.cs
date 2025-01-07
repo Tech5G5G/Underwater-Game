@@ -9,7 +9,7 @@ public partial class HUD : Control
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 
     public override void _Ready()
-	{
+    {
         FPSCounter = GetNode<Label>("FPS");
 
         this.ProcessMode = ProcessModeEnum.Always;
@@ -35,10 +35,19 @@ public partial class HUD : Control
             _ToggleFullscreen();
     }
 
-    public static void _ToggleFullscreen() => DisplayServer.WindowSetMode(DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen ? DisplayServer.WindowMode.Windowed : DisplayServer.WindowMode.ExclusiveFullscreen);
+    public static void _ToggleFullscreen()
+    {
+        var mode = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.ExclusiveFullscreen ? DisplayServer.WindowMode.Windowed : DisplayServer.WindowMode.ExclusiveFullscreen;
+        DisplayServer.WindowSetMode(mode);
+
+        var settings = GameSettings.FromStaticSettings();
+        settings.WindowMode = mode == DisplayServer.WindowMode.ExclusiveFullscreen ? 0 : 1;
+        GameSettings.SaveSettings(settings);
+        GameSettings.WindowModeSetting = settings.WindowMode;
+    }
 
     public override void _Process(double delta)
-	{
+    {
         if (FPSCounter.Visible)
             FPSCounter.Text = $"FPS: {Engine.GetFramesPerSecond()}";
     }
