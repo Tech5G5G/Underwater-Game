@@ -28,13 +28,7 @@ public partial class Menu : Node3D
     {
         camera = GetParent().GetNode<Camera3D>("Camera");
 
-        playButton = this.GetNode<MeshInstance3D>("PlayButton");
-        playButtonCollision = this.GetNode<Area3D>("PlayButton/Area3D");
-        playButtonMaterial = (playButton.Mesh as BoxMesh).Material as StandardMaterial3D;
-        playButtonCollision.InputRayPickable = true;
-        playButtonCollision.MouseEntered += () => playButtonMaterial.AlbedoColor = Colors.Gray;
-        playButtonCollision.MouseExited += () => playButtonMaterial.AlbedoColor = Colors.White;
-        playButtonCollision.InputEvent += (camera, @event, position, normal, shapeIdx) =>
+        (playButtonCollision = (playButton = this.GetNode<MeshInstance3D>("PlayButton")).GetNode<Area3D>("Area3D")).InputEvent += (camera, @event, position, normal, shapeIdx) =>
         {
             if (@event is not InputEventMouseButton mouseEvent)
                 return;
@@ -49,14 +43,11 @@ public partial class Menu : Node3D
 
             StartGame();
         };
+        playButtonMaterial = (playButton.Mesh as BoxMesh).Material as StandardMaterial3D;
+        playButtonCollision.MouseEntered += () => playButtonMaterial.AlbedoColor = Colors.Gray;
+        playButtonCollision.MouseExited += () => playButtonMaterial.AlbedoColor = Colors.White;
 
-        settingsButton = this.GetNode<MeshInstance3D>("SettingsButton");
-        settingsButtonCollision = this.GetNode<Area3D>("SettingsButton/Area3D");
-        settingsButtonMaterial = (settingsButton.Mesh as BoxMesh).Material as StandardMaterial3D;
-        settingsButtonCollision.InputRayPickable = true;
-        settingsButtonCollision.MouseEntered += () => settingsButtonMaterial.AlbedoColor = Colors.Gray;
-        settingsButtonCollision.MouseExited += () => settingsButtonMaterial.AlbedoColor = Colors.White;
-        settingsButtonCollision.InputEvent += (camera, @event, position, normal, shapeIdx) =>
+        (settingsButtonCollision = (settingsButton = this.GetNode<MeshInstance3D>("SettingsButton")).GetNode<Area3D>("Area3D")).InputEvent += (camera, @event, position, normal, shapeIdx) =>
         {
             if (@event is not InputEventMouseButton mouseEvent)
                 return;
@@ -73,14 +64,11 @@ public partial class Menu : Node3D
             AddChild(window);
             window.Show();
         };
+        settingsButtonMaterial = (settingsButton.Mesh as BoxMesh).Material as StandardMaterial3D;
+        settingsButtonCollision.MouseEntered += () => settingsButtonMaterial.AlbedoColor = Colors.Gray;
+        settingsButtonCollision.MouseExited += () => settingsButtonMaterial.AlbedoColor = Colors.White;
 
-        exitButton = this.GetNode<MeshInstance3D>("ExitButton");
-        exitButtonCollision = this.GetNode<Area3D>("ExitButton/Area3D");
-        exitButtonMaterial = (exitButton.Mesh as BoxMesh).Material as StandardMaterial3D;
-        exitButtonCollision.InputRayPickable = true;
-        exitButtonCollision.MouseEntered += () => exitButtonMaterial.AlbedoColor = Colors.Gray;
-        exitButtonCollision.MouseExited += () => exitButtonMaterial.AlbedoColor = Colors.White;
-        exitButtonCollision.InputEvent += (camera, @event, position, normal, shapeIdx) =>
+        (exitButtonCollision = (exitButton = this.GetNode<MeshInstance3D>("ExitButton")).GetNode<Area3D>("Area3D")).InputEvent += (camera, @event, position, normal, shapeIdx) =>
         {
             if (@event is not InputEventMouseButton mouseEvent)
                 return;
@@ -94,6 +82,9 @@ public partial class Menu : Node3D
             exitButtonMaterial.AlbedoColor = Colors.Gray;
             GetTree().Quit();
         };
+        exitButtonMaterial = (exitButton.Mesh as BoxMesh).Material as StandardMaterial3D;
+        exitButtonCollision.MouseEntered += () => exitButtonMaterial.AlbedoColor = Colors.Gray;
+        exitButtonCollision.MouseExited += () => exitButtonMaterial.AlbedoColor = Colors.White;
 
         GameSettings.LoadSettings();
         DisplayServer.WindowSetMode(GameSettings.WindowModeSetting == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
