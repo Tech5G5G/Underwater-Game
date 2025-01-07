@@ -39,6 +39,8 @@ public partial class player : Node3D
     public ProgressBar FlashlightPercent;
     public Timer FlashlightTimer = new();
 
+    PackedScene gameOverScreen = GD.Load<PackedScene>("res://scenes/GameOver.tscn");
+
     public override void _Ready()
     {
         Jet = GetParent<CharacterBody3D>();
@@ -53,9 +55,15 @@ public partial class player : Node3D
         LevelingBars = Jet.GetNode<Control>("Leveling/SubViewport/Control/Bars");
         LevelingBars.PivotOffset = new Vector2(LevelingBars.Size.X / 2, 0);
 
-        HealthPower = Jet.GetNode<ProgressBar>("HP/SubViewport/Control/HealthPower");
-        FlashlightPercent = Jet.GetNode<ProgressBar>("Power/SubViewport/Control/FlashlightPercent");
-        FlashlightPercent.ValueChanged += (newValue) =>
+        (HealthPower = Jet.GetNode<ProgressBar>("HP/SubViewport/Control/HealthPower")).ValueChanged += (value) =>
+        {
+            if (value > 0)
+                return;
+
+            AddChild(gameOverScreen.Instantiate<Control>());
+        };
+
+        (FlashlightPercent = Jet.GetNode<ProgressBar>("Power/SubViewport/Control/FlashlightPercent")).ValueChanged += (newValue) =>
         {
             if (newValue <= 0)
             {
