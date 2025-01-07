@@ -97,23 +97,8 @@ public partial class Menu : Node3D
 
         this.ProcessMode = ProcessModeEnum.Always;
 
-        var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.ReadWrite);
-        GameSettings gameSettings;
-        if (!FileAccess.FileExists("user://settings.json"))
-        {
-            gameSettings = new GameSettings() { Difficulty = (int)Difficulty.Normal, InvertMouse = false, MouseSensitivity = 0.25f, WindowMode = 0 };
-            file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.WriteRead);
-            file.StorePascalString(JsonSerializer.Serialize(gameSettings));
-            file.Close();
-        }
-        else
-            gameSettings = JsonSerializer.Deserialize<GameSettings>(file.GetPascalString());
-        GameSettings.WindowModeSetting = gameSettings.WindowMode;
-        GameSettings.InvertMouseSetting = gameSettings.InvertMouse;
-        GameSettings.DifficultySetting = gameSettings.Difficulty;
-        GameSettings.MouseSensitivitySetting = gameSettings.MouseSensitivity;
-
-        DisplayServer.WindowSetMode(gameSettings.WindowMode == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
+        GameSettings.LoadSettings();
+        DisplayServer.WindowSetMode(GameSettings.WindowModeSetting == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
     }
 
     public override void _Input(InputEvent @event)
