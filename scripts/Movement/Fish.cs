@@ -12,8 +12,11 @@ public enum FishType
 public partial class Fish : RigidBody3D
 {
     const float _speed = 0.1f;
+    float speed = 15;
 
     Node3D playerWindscreen;
+
+    double damage = 1;
     bool healthCooldown = true;
 
     public Vector3 forwardAxis = new(0, 0, -1);
