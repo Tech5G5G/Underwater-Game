@@ -65,17 +65,19 @@ public partial class SettingsWindow : Window
 				default:
 				case 0:
 					RadioButtons.Visible = true;
-					Bindings.Visible = false;
+                    Bindings.Visible = Mouse.Visible = Video.Visible = false;
 					break;
 				case 1:
 					Bindings.Visible = true;
-					RadioButtons.Visible = false;
+                    RadioButtons.Visible = Mouse.Visible = Video.Visible = false;
 					break;
 				case 2:
-					RadioButtons.Visible = Bindings.Visible = false;
+                    Mouse.Visible = true;
+                    RadioButtons.Visible = Bindings.Visible = Video.Visible = false;
 					break;
 				case 3:
-					RadioButtons.Visible = Bindings.Visible = false;
+                    Video.Visible = true;
+                    RadioButtons.Visible = Bindings.Visible = Mouse.Visible = false;
 					break;
 			}
 		};
