@@ -19,8 +19,8 @@ public partial class Fish : RigidBody3D
     double damage = 1;
     bool healthCooldown = true;
 
-    public Vector3 forwardAxis = new(0, 0, -1);
-    public int forwardAxisCooldown = 0;
+    Vector3 forwardAxis = new(0, 0, -1);
+    int forwardAxisCooldown = 0;
 
     public override void _Ready()
     {
@@ -49,7 +49,7 @@ public partial class Fish : RigidBody3D
     {
         Vector3 forwardDir = (currentTransform.Basis * forwardAxis).Normalized();
         Vector3 targetDir = (targetPosition - currentTransform.Origin).Normalized();
-        float localSpeed = Mathf.Clamp(_speed, 0.0f, Mathf.Acos(forwardDir.Dot(targetDir)));
+        float localSpeed = Mathf.Clamp(0.1f, 0.0f, Mathf.Acos(forwardDir.Dot(targetDir)));
 
         AngularVelocity = forwardDir.Cross(targetDir) * localSpeed / state.Step;
     }
@@ -64,13 +64,13 @@ public partial class Fish : RigidBody3D
             forwardAxisCooldown = 300;
             if (healthCooldown && player.HealthPower is not null)
             {
-                player.HealthPower.Value--;
+                player.HealthPower.Value -= damage;
                 healthCooldown = false;
             }
             return;
         }
 
-        LinearVelocity = GlobalTransform.Basis * new Vector3(0, 0, -20);
+        LinearVelocity = GlobalTransform.Basis * new Vector3(0, 0, -speed);
 
         if (forwardAxisCooldown > 0)
         {
