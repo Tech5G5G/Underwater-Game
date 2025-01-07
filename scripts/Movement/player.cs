@@ -5,7 +5,6 @@ using UnderwaterGame;
 public partial class player : Node3D
 {
     const float shiftMultiplier = 2f;
-    const float sensitivity = 0.25f;
     const float velMultiplier = 4f;
     const float acceleration = 30f;
     const float deceleration = -10f;
@@ -69,7 +68,7 @@ public partial class player : Node3D
     public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseMotion mouseMotion)
-            mousePosition = mouseMotion.Relative;
+            mousePosition = GameSettings.InvertMouseSetting ? -mouseMotion.Relative : mouseMotion.Relative;
 
         if (Input.IsActionJustPressed("toggle_camera"))
             ToggleCamera();
@@ -278,7 +277,7 @@ public partial class player : Node3D
         if (!FPCamera.Current)
             return;
 
-        mousePosition *= sensitivity;
+        mousePosition *= GameSettings.MouseSensitivitySetting;
         var yaw = mousePosition.X;
         var pitch = mousePosition.Y;
         mousePosition = Vector2.Zero;
