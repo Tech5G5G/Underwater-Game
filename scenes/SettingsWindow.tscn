@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b21gxybufjofc"]
+[gd_scene load_steps=4 format=3 uid="uid://b21gxybufjofc"]
 
 [ext_resource type="Script" path="res://scripts/UI/SettingsWindow.cs" id="1_1hv5h"]
+[ext_resource type="ButtonGroup" uid="uid://c3dnsxeq2yrxq" path="res://scenes/RadioButton_Group.tres" id="2_7sfvg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3u7wh"]
 
 [node name="Window" type="Window"]
 disable_3d = true
@@ -20,3 +23,162 @@ tab_0/title = "Difficuly"
 tab_1/title = "Bindings"
 tab_2/title = "Mouse"
 tab_3/title = "Video"
+
+[node name="View" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.411765)
+
+[node name="RadioButtons" type="Control" parent="View"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Easy" type="CheckBox" parent="View/RadioButtons"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 68.0
+offset_bottom = 36.0
+button_group = ExtResource("2_7sfvg")
+text = "Easy"
+
+[node name="Normal" type="CheckBox" parent="View/RadioButtons"]
+offset_left = 5.0
+offset_top = 45.0
+offset_right = 92.0
+offset_bottom = 76.0
+button_pressed = true
+button_group = ExtResource("2_7sfvg")
+text = "Normal"
+
+[node name="Hard" type="CheckBox" parent="View/RadioButtons"]
+offset_left = 5.0
+offset_top = 85.0
+offset_right = 72.0
+offset_bottom = 116.0
+button_group = ExtResource("2_7sfvg")
+text = "Hard"
+
+[node name="Nightmare" type="CheckBox" parent="View/RadioButtons"]
+offset_left = 5.0
+offset_top = 125.0
+offset_right = 117.0
+offset_bottom = 156.0
+button_group = ExtResource("2_7sfvg")
+text = "Nightmare
+"
+
+[node name="DifficultyExplainer" type="Label" parent="View/RadioButtons"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 180.0
+offset_right = 288.0
+offset_bottom = 255.0
+text = "Enemy damage :  1:100
+Flashlight drainage: 1% every 0.3 sec
+Power recovery: 1% every 0.1 sec
+"
+
+[node name="Bindings" type="ItemList" parent="View"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3u7wh")
+item_count = 22
+max_columns = 2
+same_column_width = true
+fixed_column_width = 138
+item_0/text = "Pitch Down "
+item_1/text = "W"
+item_2/text = "Pitch Up "
+item_3/text = "S"
+item_4/text = "Roll Left"
+item_5/text = "A"
+item_6/text = "Roll Right"
+item_7/text = "D"
+item_8/text = "Accelerate"
+item_9/text = "Space"
+item_10/text = "Speed Up"
+item_11/text = "Shift"
+item_12/text = "Flashlight"
+item_13/text = "F"
+item_14/text = "Reset Roll"
+item_15/text = "Q"
+item_16/text = "Pause Menu"
+item_17/text = "Esc"
+item_18/text = "Switch Camera"
+item_19/text = "F5"
+item_20/text = "Toggle Fullscreen"
+item_21/text = "F11"
+
+[node name="Mouse" type="Control" parent="View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InvertMouse" type="CheckBox" parent="View/Mouse"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+text = "Invert mouse"
+
+[node name="Sensitivity" type="HSlider" parent="View/Mouse"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 55.0
+offset_top = 42.0
+offset_right = -17.0
+offset_bottom = 58.0
+grow_horizontal = 2
+max_value = 200.0
+step = 5.0
+value = 100.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="MouseSensitivity" type="TextEdit" parent="View/Mouse"]
+layout_mode = 0
+offset_top = 36.0
+offset_right = 50.0
+offset_bottom = 71.0
+text = "100"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
