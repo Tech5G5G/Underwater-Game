@@ -67,7 +67,6 @@ script = ExtResource("2_5cq0c")
 
 [node name="FPS" type="Label" parent="HUD"]
 visible = false
-layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 51.0

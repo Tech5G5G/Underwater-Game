@@ -95,8 +95,6 @@ public partial class Menu : Node3D
             GetTree().Quit();
         };
 
-        this.ProcessMode = ProcessModeEnum.Always;
-
         GameSettings.LoadSettings();
         DisplayServer.WindowSetMode(GameSettings.WindowModeSetting == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
     }
@@ -105,9 +103,6 @@ public partial class Menu : Node3D
     {
         if (@event is InputEventMouseMotion mouseMotion && moveCamera)
             mousePosition = GameSettings.InvertMouseSetting ? -mouseMotion.Relative : mouseMotion.Relative;
-
-        if (Input.IsActionJustPressed("toggle_fullscreen"))
-            HUD._ToggleFullscreen();
     }
 
     public override void _Process(double delta)
@@ -123,6 +118,7 @@ public partial class Menu : Node3D
 
     private void StartGame()
     {
+        this.ProcessMode = ProcessModeEnum.Always;
         GetTree().Paused = true;
         moveCamera = false;
 

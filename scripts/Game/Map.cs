@@ -39,4 +39,10 @@ public partial class Map : Node3D
             AddChild(fish);
         }
     }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (Input.IsActionJustPressed("toggle_fullscreen"))
+            SettingsWindow.ToggleFullscreen();
+    }
 }
