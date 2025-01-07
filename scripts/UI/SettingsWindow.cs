@@ -32,12 +32,31 @@ public class GameSettings
 
     public static void SaveSettings(GameSettings settings)
     {
-        throw new NotImplementedException("IMPLEMENT THIS ON THE BUS!!!");
+		var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
+		file.StorePascalString(JsonSerializer.Serialize(settings));
+		file.Close();
     }
 
     public static void LoadSettings()
     {
-        throw new NotImplementedException("IMPLEMENT THIS ON THE BUS!!!");
+		var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.ReadWrite);
+		GameSettings gameSettings;
+		if (!FileAccess.FileExists("user://settings.json"))
+		{
+			gameSettings = new GameSettings() { Difficulty = (int)global::Difficulty.Normal, InvertMouse = false, MouseSensitivity = 0.25f, WindowMode = 0 };
+			file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.WriteRead);
+			file.StorePascalString(JsonSerializer.Serialize(gameSettings));
+			file.Close();
+		}
+		else
+		{
+			gameSettings = JsonSerializer.Deserialize<GameSettings>(file.GetPascalString());
+			file.Close();
+		}
+		GameSettings.WindowModeSetting = gameSettings.WindowMode;
+		GameSettings.InvertMouseSetting = gameSettings.InvertMouse;
+		GameSettings.DifficultySetting = gameSettings.Difficulty;
+		GameSettings.MouseSensitivitySetting = gameSettings.MouseSensitivity;
     }
 }
 
