@@ -43,49 +43,49 @@ public class GameSettings
 
 public partial class SettingsWindow : Window
 {
-	public TabBar Tabs;
+    public TabBar Tabs;
 
-	public Control RadioButtons;
-	public ItemList Bindings;
-	public Control Mouse;
+    public Control RadioButtons;
+    public ItemList Bindings;
+    public Control Mouse;
     public Control Video;
 
-	public HSlider Sensitivity;
-	public TextEdit MouseSensitivity;
+    public HSlider Sensitivity;
+    public TextEdit MouseSensitivity;
     public CheckBox InvertMouse;
-	public Label DifficultyExplainer;
+    public Label DifficultyExplainer;
     public OptionButton WindowMode;
 
-	public override void _Ready()
-	{
-		(Tabs = GetNode<TabBar>("Tabs")).TabSelected += (index) =>
-		{
-			switch (index)
-			{
-				default:
-				case 0:
-					RadioButtons.Visible = true;
+    public override void _Ready()
+    {
+        (Tabs = GetNode<TabBar>("Tabs")).TabSelected += (index) =>
+        {
+            switch (index)
+            {
+                default:
+                case 0:
+                    RadioButtons.Visible = true;
                     Bindings.Visible = Mouse.Visible = Video.Visible = false;
-					break;
-				case 1:
-					Bindings.Visible = true;
+                    break;
+                case 1:
+                    Bindings.Visible = true;
                     RadioButtons.Visible = Mouse.Visible = Video.Visible = false;
-					break;
-				case 2:
+                    break;
+                case 2:
                     Mouse.Visible = true;
                     RadioButtons.Visible = Bindings.Visible = Video.Visible = false;
-					break;
-				case 3:
+                    break;
+                case 3:
                     Video.Visible = true;
                     RadioButtons.Visible = Bindings.Visible = Mouse.Visible = false;
-					break;
-			}
-		};
+                    break;
+            }
+        };
 
-		(RadioButtons = GetNode<Control>("View/RadioButtons")).GetNode<Button>("Easy").ButtonGroup.Pressed += (selected) =>
-		{
+        (RadioButtons = GetNode<Control>("View/RadioButtons")).GetNode<Button>("Easy").ButtonGroup.Pressed += (selected) =>
+        {
             DifficultyExplainer.Text = (string)selected.Name switch
-			{
+            {
                 "Easy" => "Enemy damage: 1:200\nFlashlight drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec",
                 "Hard" => "Enemy damage: 1:75\nFlashlight drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec",
                 "Nightmare" => "Enemy damage: 1:50\nFlashlight drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec",
@@ -105,16 +105,14 @@ public partial class SettingsWindow : Window
             file.Close();
 
             GameSettings.DifficultySetting = settings.Difficulty;
-		};
+        };
 
-		(Sensitivity = (Mouse = GetNode<Control>("View/Mouse")).GetNode<HSlider>("Sensitivity")).ValueChanged += (value) =>
-		{
+        (Sensitivity = (Mouse = GetNode<Control>("View/Mouse")).GetNode<HSlider>("Sensitivity")).ValueChanged += (value) =>
+        {
             float sensitivity = 0.25f * ((float)value / 100f);
 
-			if (GuiGetFocusOwner() is not TextEdit)
-			{
-				var sensitivity = 0.25f * (value / 100);
-				MouseSensitivity.Text = value.ToString();
+            if (GuiGetFocusOwner() is not TextEdit)
+                MouseSensitivity.Text = value.ToString();
 
             var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
             var settings = GameSettings.FromStaticSettings();
@@ -123,19 +121,19 @@ public partial class SettingsWindow : Window
             file.Close();
 
             GameSettings.MouseSensitivitySetting = sensitivity;
-		};
-		(MouseSensitivity = Mouse.GetNode<TextEdit>("MouseSensitivity")).TextChanged += () =>
-		{
-			if (!int.TryParse(MouseSensitivity.Text, out int value))
-			{
-				MouseSensitivity.Text = string.Empty;
-				return;
-			}
+        };
+        (MouseSensitivity = Mouse.GetNode<TextEdit>("MouseSensitivity")).TextChanged += () =>
+        {
+            if (!int.TryParse(MouseSensitivity.Text, out int value))
+            {
+                MouseSensitivity.Text = string.Empty;
+                return;
+            }
 
-			value = Mathf.Clamp(value, 0, 200);
-			value = (int)Mathf.Round(value / 5) * 5;
-			Sensitivity.Value = value;
-		};
+            value = Mathf.Clamp(value, 0, 200);
+            value = (int)Mathf.Round(value / 5) * 5;
+            Sensitivity.Value = value;
+        };
         (InvertMouse = Mouse.GetNode<CheckBox>("InvertMouse")).ButtonUp += () =>
         {
             var file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.Write);
@@ -146,7 +144,7 @@ public partial class SettingsWindow : Window
 
             GameSettings.InvertMouseSetting = InvertMouse.ButtonPressed;
         };
-		MouseSensitivity.FocusExited += () => MouseSensitivity.Text = Sensitivity.Value.ToString();
+        MouseSensitivity.FocusExited += () => MouseSensitivity.Text = Sensitivity.Value.ToString();
 
         (WindowMode = (Video = GetNode<Control>("View/Video")).GetNode<OptionButton>("WindowMode")).ItemSelected += (index) =>
         {
@@ -160,14 +158,40 @@ public partial class SettingsWindow : Window
             GameSettings.WindowModeSetting = settings.WindowMode;
         };
 
-		Bindings = GetNode<ItemList>("View/Bindings");
-		DifficultyExplainer = RadioButtons.GetNode<Label>("DifficultyExplainer");
-		this.CloseRequested += () => Hide();
-	}
+        Bindings = GetNode<ItemList>("View/Bindings");
+        DifficultyExplainer = RadioButtons.GetNode<Label>("DifficultyExplainer");
 
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventKey input && input.Keycode == Key.Enter && GuiGetFocusOwner() is TextEdit)
-			GetViewport().SetInputAsHandled();
-	}
+        InvertMouse.SetPressedNoSignal(GameSettings.InvertMouseSetting);
+        Sensitivity.SetValueNoSignal(GameSettings.MouseSensitivitySetting / 0.25f * 100);
+        MouseSensitivity.Text = (GameSettings.MouseSensitivitySetting / 0.25f * 100).ToString();
+        WindowMode.Selected = GameSettings.WindowModeSetting;
+
+        switch ((Difficulty)GameSettings.DifficultySetting)
+        {
+            case Difficulty.Easy:
+                RadioButtons.GetNode<Button>("Easy").ButtonPressed = true;
+                DifficultyExplainer.Text = "Enemy damage: 1:200\nFlashlight drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec";
+                break;
+            case Difficulty.Normal:
+                RadioButtons.GetNode<Button>("Normal").ButtonPressed = true;
+                DifficultyExplainer.Text = "Enemy damage:  1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec";
+                break;
+            case Difficulty.Hard:
+                RadioButtons.GetNode<Button>("Hard").ButtonPressed = true;
+                DifficultyExplainer.Text = "Enemy damage: 1:75\nFlashlight drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec";
+                break;
+            case Difficulty.Nightmare:
+                RadioButtons.GetNode<Button>("Nightmare").ButtonPressed = true;
+                DifficultyExplainer.Text = "Enemy damage: 1:50\nFlashlight drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec";
+                break;
+        }
+
+        this.CloseRequested += () => Hide();
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey input && input.Keycode == Key.Enter && GuiGetFocusOwner() is TextEdit)
+            GetViewport().SetInputAsHandled();
+    }
 }
