@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkdu06736pa5q"]
+
+[ext_resource type="Script" path="res://scripts/UI/GameOver.cs" id="1_pf2a2"]
+
+[node name="Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pf2a2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.192157)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -29.0
+offset_right = 20.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -213.0
+offset_top = -42.0
+offset_right = 215.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 75
+text = "Game Over"
+
+[node name="Respawn" type="Button" parent="Control"]
+layout_mode = 1
+offset_left = -76.0
+offset_top = 87.0
+offset_right = 5.0
+offset_bottom = 118.0
+text = "Respawn"
+
+[node name="Menu" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 87.0
+offset_right = 118.0
+offset_bottom = 119.0
+text = "Main Menu"
