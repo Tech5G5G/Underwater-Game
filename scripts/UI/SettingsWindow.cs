@@ -23,6 +23,7 @@ public class GameSettings
 	public float MouseSensitivity { get; set; }
 	public int WindowMode { get; set; }
 	public int Difficulty { get; set; }
+    public int FPSMode { get; set; }
 
 	public static bool InvertMouseSetting { get; set; }
 	public static float MouseSensitivitySetting { get; set; }
