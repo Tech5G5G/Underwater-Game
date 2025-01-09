@@ -119,7 +119,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_3u7wh")
-item_count = 22
+item_count = 24
 max_columns = 2
 same_column_width = true
 fixed_column_width = 138
@@ -216,3 +216,16 @@ popup/item_0/text = "Fullscreen"
 popup/item_0/id = 1
 popup/item_1/text = "Windowed"
 popup/item_1/id = 1
+
+[node name="FPSCounter" type="OptionButton" parent="View/Video"]
+layout_mode = 0
+offset_left = 121.0
+offset_right = 220.0
+offset_bottom = 31.0
+selected = 0
+item_count = 3
+popup/item_0/text = "Off"
+popup/item_1/text = "On"
+popup/item_1/id = 1
+popup/item_2/text = "Contrast"
+popup/item_2/id = 2
