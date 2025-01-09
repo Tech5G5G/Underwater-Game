@@ -117,6 +117,7 @@ public partial class SettingsWindow : Window
 	public CheckBox InvertMouse;
 	public Label DifficultyExplainer;
 	public OptionButton WindowMode;
+	public OptionButton FPSCounter;
 
 	public override void _Ready()
 	{
@@ -208,6 +209,14 @@ public partial class SettingsWindow : Window
 			DisplayServer.WindowSetMode(index == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
 			GameSettings.WindowModeSetting = settings.WindowMode;
 		};
+        (FPSCounter = Video.GetNode<OptionButton>("FPSCounter")).ItemSelected += (index) =>
+        {
+            var settings = GameSettings.FromStaticSettings();
+            settings.FPSMode = (int)index;
+
+            GameSettings.SaveSettings(settings);
+            GameSettings.FPSModeSetting = settings.FPSMode;
+        };
 
 		Bindings = GetNode<ItemList>("View/Bindings");
 		DifficultyExplainer = RadioButtons.GetNode<Label>("DifficultyExplainer");
@@ -215,6 +224,8 @@ public partial class SettingsWindow : Window
 		InvertMouse.SetPressedNoSignal(GameSettings.InvertMouseSetting);
 		Sensitivity.SetValueNoSignal(GameSettings.MouseSensitivitySetting / 0.25f * 100);
 		MouseSensitivity.Text = (GameSettings.MouseSensitivitySetting / 0.25f * 100).ToString();
+		FPSCounter.Selected = GameSettings.FPSModeSetting;
+
 		WindowMode.Selected = GameSettings.WindowModeSetting;
 
 		switch ((Difficulty)GameSettings.DifficultySetting)
