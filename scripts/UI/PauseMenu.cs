@@ -9,20 +9,26 @@ public partial class PauseMenu : Control
     public Button Menu;
     public Button Exit;
 
+    PackedScene listWindow = GD.Load<PackedScene>("res://scenes/List.tscn");
     PackedScene settingsWindow = GD.Load<PackedScene>("res://scenes/SettingsWindow.tscn");
 
     public override void _Ready()
     {
-        (Resume = GetNode<Button>("Resume")).ButtonUp += () => CloseMenu();
-        (List = GetNode<Button>("List")).ButtonUp += () => {/*Show research list here*/};
-        (Exit = GetNode<Button>("Exit")).ButtonUp += () => GetTree().Quit();
-        (Settings = GetNode<Button>("Settings")).ButtonUp += () =>
+        (Resume = GetNode<Button>("Resume")).Pressed += () => CloseMenu();
+        (Exit = GetNode<Button>("Exit")).Pressed += () => GetTree().Quit();
+        (List = GetNode<Button>("List")).Pressed += () =>
+        {
+            var window = listWindow.Instantiate<Window>();
+            AddChild(window);
+            window.Show();
+        };
+        (Settings = GetNode<Button>("Settings")).Pressed += () =>
         {
             var window = settingsWindow.Instantiate<Window>();
             AddChild(window);
             window.Show();
         };
-        (Menu = GetNode<Button>("Menu")).ButtonUp += () =>
+        (Menu = GetNode<Button>("Menu")).Pressed += () =>
         {
             player.HealthPower = null;
             var tree = GetTree();
@@ -44,6 +50,6 @@ public partial class PauseMenu : Control
         Input.MouseMode = Input.MouseModeEnum.Captured;
         GetTree().Paused = false;
         HUD.OpenMenu = false;
-        Free();
+        QueueFree();
     }
 }

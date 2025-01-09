@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwkf303t1jyg6"]
+
+[ext_resource type="Texture2D" uid="uid://vtfucjiyxpn3" path="res://textures/fish-icons/BlueFish.png" id="1_gb4ot"]
+[ext_resource type="Script" path="res://scripts/UI/List.cs" id="1_x1t8n"]
+[ext_resource type="Texture2D" uid="uid://bv2ynoemvjn6u" path="res://textures/fish-icons/GreenFish.png" id="2_0fi4u"]
+[ext_resource type="Texture2D" uid="uid://xblfhnksttgq" path="res://textures/fish-icons/EpikFish.png" id="3_vob3n"]
+[ext_resource type="Texture2D" uid="uid://cxh4ymimp87sd" path="res://textures/fish-icons/BotFish.png" id="4_dl5ts"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aidhl"]
+
+[node name="List" type="Window"]
+title = "Research List"
+initial_position = 2
+size = Vector2i(307, 300)
+script = ExtResource("1_x1t8n")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.411765)
+
+[node name="Fish" type="ItemList" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 45.0
+offset_right = -7.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_aidhl")
+item_count = 8
+max_columns = 2
+item_0/text = "  Unknown  "
+item_0/icon = ExtResource("1_gb4ot")
+item_1/text = "93.9%"
+item_1/disabled = true
+item_2/text = "  Unknown  "
+item_2/icon = ExtResource("2_0fi4u")
+item_3/text = "5%"
+item_3/disabled = true
+item_4/text = "  Unknown  "
+item_4/icon = ExtResource("3_vob3n")
+item_5/text = "1%"
+item_5/disabled = true
+item_6/text = "  Unknown  "
+item_6/icon = ExtResource("4_dl5ts")
+item_7/text = "0.1%"
+item_7/disabled = true
+
+[node name="Reset" type="Button" parent="."]
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 124.0
+offset_bottom = 38.0
+text = "Reset findings"
