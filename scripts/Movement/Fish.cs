@@ -44,11 +44,11 @@ public partial class Fish : RigidBody3D
                 speed = 25;
                 break;
             case FishType.Epik:
-                damage = 200;
+                damage = 50;
                 break;
             case FishType.NextBot:
                 speed = 25;
-                damage = 200;
+                damage = 50;
                 break;
         }
     }
