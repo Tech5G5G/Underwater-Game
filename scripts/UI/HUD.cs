@@ -3,7 +3,6 @@ using System;
 
 public partial class HUD : Control
 {
-    public static Label FPSCounter { get; set; }
     public static bool OpenMenu { get; set; } = true;
 
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
@@ -31,10 +30,3 @@ public partial class HUD : Control
             GetTree().Paused = true;
         }
     }
-
-    public override void _Process(double delta)
-    {
-        if (FPSCounter.Visible)
-            FPSCounter.Text = $"FPS: {Engine.GetFramesPerSecond()}";
-    }
-}
