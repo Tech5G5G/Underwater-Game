@@ -5,12 +5,11 @@ public partial class HUD : Control
 {
     public static bool OpenMenu { get; set; } = true;
 
+    PackedScene listWindow = GD.Load<PackedScene>("res://scenes/List.tscn");
     public PackedScene PauseMenuScene = GD.Load<PackedScene>("res://scenes/PauseMenu.tscn");
 
     public override void _Ready()
     {
-        FPSCounter = GetNode<Label>("FPS");
-
         this.ProcessMode = ProcessModeEnum.Always;
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }
@@ -19,18 +18,35 @@ public partial class HUD : Control
     {
         if (Input.IsActionJustPressed("pause"))
             PauseGame();
-    private void PauseGame()
+
+        if (Input.IsActionJustPressed("open_list"))
         {
-            if (!OpenMenu)
+            var tree = GetTree();
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            var window = listWindow.Instantiate<Window>();
+            window.CloseRequested += () =>
             {
-                OpenMenu = true;
-                return;
-            }
+                tree.Paused = false;
+                Input.MouseMode = Input.MouseModeEnum.Captured;
+            };
+            AddChild(window);
+            window.Show();
+            tree.Paused = true;
+        }
+    }
+
+    private void PauseGame()
+    {
+        if (!OpenMenu)
+        {
+            OpenMenu = true;
+            return;
+        }
 
         var menu = PauseMenuScene.Instantiate<PauseMenu>();
         AddChild(menu);
 
-            Input.MouseMode = Input.MouseModeEnum.Visible;
-            GetTree().Paused = true;
-        }
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+        GetTree().Paused = true;
     }
+}
