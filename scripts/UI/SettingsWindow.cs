@@ -85,7 +85,7 @@ public class GameSettings
 		GameSettings gameSettings;
 		if (!FileAccess.FileExists("user://settings.json"))
 		{
-			gameSettings = new GameSettings() { Difficulty = (int)global::Difficulty.Normal, InvertMouse = false, MouseSensitivity = 0.25f, WindowMode = 0 };
+			gameSettings = new() { Difficulty = (int)global::Difficulty.Normal, InvertMouse = false, MouseSensitivity = 0.25f, WindowMode = 0 };
 			file = FileAccess.Open("user://settings.json", FileAccess.ModeFlags.WriteRead);
 			file.StorePascalString(JsonSerializer.Serialize(gameSettings));
 			file.Close();
@@ -95,10 +95,11 @@ public class GameSettings
 			gameSettings = JsonSerializer.Deserialize<GameSettings>(file.GetPascalString());
 			file.Close();
 		}
-		GameSettings.WindowModeSetting = gameSettings.WindowMode;
-		GameSettings.InvertMouseSetting = gameSettings.InvertMouse;
-		GameSettings.DifficultySetting = gameSettings.Difficulty;
-		GameSettings.MouseSensitivitySetting = gameSettings.MouseSensitivity;
+		WindowModeSetting = gameSettings.WindowMode;
+		InvertMouseSetting = gameSettings.InvertMouse;
+		DifficultySetting = gameSettings.Difficulty;
+		MouseSensitivitySetting = gameSettings.MouseSensitivity;
+		FPSModeSetting = gameSettings.FPSMode;
 	}
 }
 
