@@ -105,10 +105,10 @@ public partial class SettingsWindow : Window
 		{
 			DifficultyExplainer.Text = (string)selected.Name switch
 			{
-				"Easy" => "Enemy damage: 1:200\nFlashlight drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec",
-				"Hard" => "Enemy damage: 1:75\nFlashlight drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec",
-				"Nightmare" => "Enemy damage: 1:50\nFlashlight drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec",
-				_ => "Enemy damage: 1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec"
+				"Easy" => "Enemy damage: 1:200\nPower drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec",
+				"Hard" => "Enemy damage: 1:75\nPower drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec",
+				"Nightmare" => "Enemy damage: 1:50\nPower drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec",
+				_ => "Enemy damage: 1:100\nPower drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec"
 			};
 
 			var settings = GameSettings.FromStaticSettings();
@@ -178,19 +178,19 @@ public partial class SettingsWindow : Window
 		{
 			case Difficulty.Easy:
 				RadioButtons.GetNode<Button>("Easy").ButtonPressed = true;
-				DifficultyExplainer.Text = "Enemy damage: 1:200\nFlashlight drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec";
+				DifficultyExplainer.Text = "Enemy damage: 1:200\nPower drainage: 1% every 0.5 sec\nPower recovery: 1% every 0.1 sec";
 				break;
 			case Difficulty.Normal:
 				RadioButtons.GetNode<Button>("Normal").ButtonPressed = true;
-				DifficultyExplainer.Text = "Enemy damage: 1:100\nFlashlight drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec";
+				DifficultyExplainer.Text = "Enemy damage: 1:100\nPower drainage: 1% every 0.3 sec\nPower recovery: 1% every 0.2 sec";
 				break;
 			case Difficulty.Hard:
 				RadioButtons.GetNode<Button>("Hard").ButtonPressed = true;
-				DifficultyExplainer.Text = "Enemy damage: 1:75\nFlashlight drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec";
+				DifficultyExplainer.Text = "Enemy damage: 1:75\nPower drainage: 1% every 0.2 sec\nPower recovery: 1% every 0.3 sec";
 				break;
 			case Difficulty.Nightmare:
 				RadioButtons.GetNode<Button>("Nightmare").ButtonPressed = true;
-				DifficultyExplainer.Text = "Enemy damage: 1:50\nFlashlight drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec";
+				DifficultyExplainer.Text = "Enemy damage: 1:50\nPower drainage: 1% every 0.1 sec\nPower recovery: 1% every 0.5 sec";
 				break;
 		}
 		

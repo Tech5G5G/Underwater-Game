@@ -101,7 +101,7 @@ offset_right = 291.0
 offset_bottom = -45.0
 grow_vertical = 0
 text = "Enemy damage: 1:100
-Flashlight drainage: 1% every 0.3 sec
+Power drainage: 1% every 0.3 sec
 Power recovery: 1% every 0.1 sec
 "
 
