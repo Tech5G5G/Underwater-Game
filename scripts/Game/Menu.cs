@@ -87,6 +87,7 @@ public partial class Menu : Node3D
         exitButtonCollision.MouseExited += () => exitButtonMaterial.AlbedoColor = Colors.White;
 
         GameSettings.LoadSettings();
+        GameSave.LoadSave();
         DisplayServer.WindowSetMode(GameSettings.WindowModeSetting == 0 ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed);
     }
 
