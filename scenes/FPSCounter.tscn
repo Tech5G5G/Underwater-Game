@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3kxp0432lbje"]
+
+[ext_resource type="Script" path="res://scripts/UI/FPSCounter.cs" id="1_rq7lg"]
+
+[node name="Counter" type="Label"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 51.0
+offset_bottom = 29.0
+text = "FPS: 0"
+script = ExtResource("1_rq7lg")
