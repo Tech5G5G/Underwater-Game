@@ -18,6 +18,8 @@ public partial class HUD : Control
     public override void _Input(InputEvent @event)
     {
         if (Input.IsActionJustPressed("pause"))
+            PauseGame();
+    private void PauseGame()
         {
             if (!OpenMenu)
             {
@@ -25,7 +27,9 @@ public partial class HUD : Control
                 return;
             }
 
-            AddChild(PauseMenuScene.Instantiate<PauseMenu>());
+        var menu = PauseMenuScene.Instantiate<PauseMenu>();
+        AddChild(menu);
+
             Input.MouseMode = Input.MouseModeEnum.Visible;
             GetTree().Paused = true;
         }
