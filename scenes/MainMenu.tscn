@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://c3d4yk66mbarl"]
+[gd_scene load_steps=29 format=3 uid="uid://c3d4yk66mbarl"]
 
 [ext_resource type="Script" path="res://scripts/Game/Map.cs" id="1_kh5hh"]
+[ext_resource type="PackedScene" uid="uid://c3kxp0432lbje" path="res://scenes/FPSCounter.tscn" id="2_ru3w5"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="2_v1w7e"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="3_carm0"]
 [ext_resource type="PackedScene" uid="uid://bc2ywxncnthc6" path="res://scenes/jet.tscn" id="4_m8qvf"]
@@ -90,6 +91,8 @@ viewport_path = NodePath("Menu/Sprite3D/SubViewport")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
 script = ExtResource("1_kh5hh")
 
+[node name="FPS" parent="." instance=ExtResource("2_ru3w5")]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_a8150")
 
@@ -129,7 +132,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.61352, 0)
 script = ExtResource("5_tp8uy")
 
 [node name="PlayButton" type="MeshInstance3D" parent="Menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.8479, 19.6157, -7.54063)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.3397, 19.6157, -7.54063)
 mesh = SubResource("BoxMesh_st52i")
 skeleton = NodePath("../Sprite3D")
 
@@ -143,7 +146,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 mesh = SubResource("TextMesh_2nmls")
 
 [node name="SettingsButton" type="MeshInstance3D" parent="Menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.171, 19.616, -7.541)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6628, 19.616, -7.541)
 mesh = SubResource("BoxMesh_3fs81")
 skeleton = NodePath("../Sprite3D")
 
@@ -157,7 +160,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 mesh = SubResource("TextMesh_q8wgr")
 
 [node name="ExitButton" type="MeshInstance3D" parent="Menu"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.588, 19.616, -7.541)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.0798, 19.616, -7.541)
 mesh = SubResource("BoxMesh_4ghwb")
 skeleton = NodePath("../Sprite3D")
 

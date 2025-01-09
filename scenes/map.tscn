@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dodlkyrqx6utv"]
+[gd_scene load_steps=21 format=3 uid="uid://dodlkyrqx6utv"]
 
 [ext_resource type="Script" path="res://scripts/Game/Map.cs" id="1_2mn0m"]
 [ext_resource type="Texture2D" uid="uid://6gyhi0f24qnw" path="res://textures/Skybox.png" id="1_ogeoh"]
 [ext_resource type="Texture2D" uid="uid://cfwjrkf4wnaia" path="res://textures/Sand.jpg" id="2_2nkb0"]
 [ext_resource type="Script" path="res://scripts/UI/HUD.cs" id="2_5cq0c"]
+[ext_resource type="PackedScene" uid="uid://c3kxp0432lbje" path="res://scenes/FPSCounter.tscn" id="2_iidvn"]
 [ext_resource type="PackedScene" uid="uid://bc2ywxncnthc6" path="res://scenes/jet.tscn" id="3_qvwbv"]
 [ext_resource type="Texture2D" uid="uid://bla28xtbgi8c0" path="res://textures/Flashlight.png" id="5_jt6sp"]
 [ext_resource type="Script" path="res://scripts/Movement/player.cs" id="7_kbhhu"]
@@ -24,14 +25,16 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.1
 volumetric_fog_emission = Color(0, 0, 0.0470588, 1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_dikv0"]
-size = Vector2(400, 400)
+[sub_resource type="PlaneMesh" id="PlaneMesh_dg160"]
+size = Vector2(2000, 2000)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vhsh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yaut8"]
 albedo_texture = ExtResource("2_2nkb0")
+uv1_scale = Vector3(10, 10, 10)
+uv1_triplanar_sharpness = 21.1121
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ay80v"]
-points = PackedVector3Array(-200, 0, -200, -200, 0, 200, 200, 0, -200, 200, 0, 200)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ox6wg"]
+points = PackedVector3Array(-1000, 0, -1000, -1000, 0, 1000, 1000, 0, -1000, 1000, 0, 1000)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ggne8"]
 
@@ -53,9 +56,6 @@ viewport_path = NodePath("Jet/Power/SubViewport")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306595, -0.0710413, 1.21034)
 script = ExtResource("1_2mn0m")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0t6va")
-
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -65,25 +65,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_5cq0c")
 
-[node name="FPS" type="Label" parent="HUD"]
-visible = false
-offset_left = 6.0
-offset_top = 6.0
-offset_right = 51.0
-offset_bottom = 29.0
-text = "FPS: 0"
+[node name="FPS" parent="." instance=ExtResource("2_iidvn")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0t6va")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_dikv0")
-surface_material_override/0 = SubResource("StandardMaterial3D_3vhsh")
+mesh = SubResource("PlaneMesh_dg160")
+surface_material_override/0 = SubResource("StandardMaterial3D_yaut8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_ay80v")
+shape = SubResource("ConvexPolygonShape3D_ox6wg")
 
 [node name="Jet" parent="." instance=ExtResource("3_qvwbv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00943, -16.616)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3.00943, -27.2201)
 
 [node name="Cameras" type="Node3D" parent="Jet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59864, -0.378324)
