@@ -16,11 +16,11 @@ public partial class Map : Node3D
             Fish fish = null;
             switch (ran.Next(1, 1001))
             {
-                case <= 974:
+                case <= 939:
                     fish = blueFishScene.Instantiate<Fish>();
                     fish.Type = FishType.Default;
                     break;
-                case <= 994:
+                case <= 989:
                     fish = greenFishScene.Instantiate<Fish>();
                     fish.Type = FishType.QuickBoi;
                     break;
