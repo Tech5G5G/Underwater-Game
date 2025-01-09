@@ -10,6 +10,13 @@ public enum Difficulty
 	Nightmare
 }
 
+public enum FPSMode
+{
+	Off,
+	On,
+	Contrast
+}
+
 public class GameSettings
 {
 	public bool InvertMouse { get; set; }
