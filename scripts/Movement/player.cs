@@ -35,10 +35,13 @@ public partial class player : Node3D
     public Sprite3D Leveling;
     public Control LevelingBars;
 
-    public static ProgressBar HealthPower { get; set; }
     public ProgressBar FlashlightPercent;
     public Timer FlashlightTimer = new();
 
+    public static ProgressBar HealthPower { get; set; }
+    public static bool MenuOpened { get; set; } = true;
+
+    readonly Difficulty difficulty = (Difficulty)GameSettings.DifficultySetting;
     PackedScene gameOverScreen = GD.Load<PackedScene>("res://scenes/GameOver.tscn");
 
     public override void _Ready()
@@ -62,6 +65,13 @@ public partial class player : Node3D
 
             AddChild(gameOverScreen.Instantiate<Control>());
         };
+        HealthPower.SetValueNoSignal(HealthPower.MaxValue = difficulty switch
+        {
+            Difficulty.Easy => 200,
+            Difficulty.Hard => 75,
+            Difficulty.Nightmare => 50,
+            _ => 100
+        });
 
         (FlashlightPercent = Jet.GetNode<ProgressBar>("Power/SubViewport/Control/FlashlightPercent")).ValueChanged += (newValue) =>
         {
@@ -122,25 +132,37 @@ public partial class player : Node3D
             FlashlightTimer.Timeout += () =>
             {
                 if (FlashlightPercent.Value > 0)
-                    FlashlightPercent.Value -= 1;
+                    FlashlightPercent.Value--;
                 else
                     FlashlightTimer.Stop();
             };
-            FlashlightTimer.Start(0.3);
+            FlashlightTimer.Start(difficulty switch
+            {
+                Difficulty.Easy => 0.5,
+                Difficulty.Hard => 0.2,
+                Difficulty.Nightmare => 0.1,
+                _ => 0.3
+            });
         }
         else
         {
             FlashlightTimer.Timeout += () =>
             {
                 if (FlashlightPercent.Value < 100)
-                    FlashlightPercent.Value += 1;
+                    FlashlightPercent.Value++;
                 else
                 {
                     movementAllowed = FPLight.Visible = Leveling.Visible = true;
                     FlashlightTimer.Stop();
                 }
             };
-            FlashlightTimer.Start(0.1);
+            FlashlightTimer.Start(difficulty switch
+            {
+                Difficulty.Easy => 0.1,
+                Difficulty.Hard => 0.3,
+                Difficulty.Nightmare => 0.5,
+                _ => 0.2
+            });
         }
     }
 
