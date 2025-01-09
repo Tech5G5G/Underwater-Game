@@ -191,7 +191,7 @@ public partial class SettingsWindow : Window
 			value = (int)Mathf.Round(value / 5) * 5;
 			Sensitivity.Value = value;
 		};
-		(InvertMouse = Mouse.GetNode<CheckBox>("InvertMouse")).ButtonUp += () =>
+		(InvertMouse = Mouse.GetNode<CheckBox>("InvertMouse")).Pressed += () =>
 		{
 			var settings = GameSettings.FromStaticSettings();
 			settings.InvertMouse = InvertMouse.ButtonPressed;
@@ -218,7 +218,7 @@ public partial class SettingsWindow : Window
             GameSettings.FPSModeSetting = settings.FPSMode;
         };
 
-		Bindings = GetNode<ItemList>("View/Bindings");
+        Bindings = GetNode<ItemList>("View/Bindings");
 		DifficultyExplainer = RadioButtons.GetNode<Label>("DifficultyExplainer");
 
 		InvertMouse.SetPressedNoSignal(GameSettings.InvertMouseSetting);
@@ -227,6 +227,11 @@ public partial class SettingsWindow : Window
 		FPSCounter.Selected = GameSettings.FPSModeSetting;
 
 		WindowMode.Selected = GameSettings.WindowModeSetting;
+		GameSettings.WindowModeSettingChanged += () =>
+		{
+			if (IsInstanceValid(this))
+				WindowMode.Selected = GameSettings.WindowModeSetting;
+		};
 
 		switch ((Difficulty)GameSettings.DifficultySetting)
 		{
