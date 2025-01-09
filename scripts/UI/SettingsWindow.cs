@@ -25,10 +25,44 @@ public class GameSettings
 	public int Difficulty { get; set; }
     public int FPSMode { get; set; }
 
-	public static bool InvertMouseSetting { get; set; }
-	public static float MouseSensitivitySetting { get; set; }
-	public static int WindowModeSetting { get; set; }
-	public static int DifficultySetting { get; set; }
+	public static bool InvertMouseSetting
+	{
+		get => gameSettings.InvertMouse;
+		set => gameSettings.InvertMouse = value;
+	}
+	public static float MouseSensitivitySetting
+    {
+        get => gameSettings.MouseSensitivity;
+        set => gameSettings.MouseSensitivity = value;
+    }
+    public static int DifficultySetting
+    {
+        get => gameSettings.Difficulty;
+        set => gameSettings.Difficulty = value;
+    }
+    public static int WindowModeSetting
+    {
+        get => gameSettings.WindowMode;
+		set
+		{ 
+			gameSettings.WindowMode = value;
+			WindowModeSettingChanged?.Invoke();
+		}
+    }
+    public static int FPSModeSetting
+    {
+        get => gameSettings.FPSMode;
+        set
+        {
+            gameSettings.FPSMode = value;
+            FPSModeSettingChanged?.Invoke();
+        }
+    }
+
+    public static event Action WindowModeSettingChanged;
+    public static event Action FPSModeSettingChanged;
+
+    private static GameSettings gameSettings = new();
 
 	public static GameSettings FromStaticSettings() => new()
 	{
