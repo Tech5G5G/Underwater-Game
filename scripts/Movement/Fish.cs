@@ -15,6 +15,7 @@ public partial class Fish : RigidBody3D
     float speed = 15;
 
     Node3D playerWindscreen;
+    bool unlockable = true;
 
     double damage = 1;
     bool healthCooldown = true;
@@ -25,6 +26,13 @@ public partial class Fish : RigidBody3D
     public override void _Ready()
     {
         playerWindscreen = GetParent().GetNode<Node3D>("Jet/Leveling");
+        unlockable = Type switch
+        {
+            FishType.QuickBoi => !GameSave.GreenFoundSave,
+            FishType.Epik => !GameSave.EpikFoundSave,
+            FishType.NextBot => !GameSave.BotFoundSave,
+            _ => !GameSave.DefaultFoundSave
+        };
 
         GravityScale = 0;
         ContactMonitor = true;
@@ -67,6 +75,8 @@ public partial class Fish : RigidBody3D
                 player.HealthPower.Value -= damage;
                 healthCooldown = false;
             }
+            if (unlockable && player.HealthPower is not null)
+                UnlockFish();
             return;
         }
 
@@ -80,5 +90,31 @@ public partial class Fish : RigidBody3D
 
         healthCooldown = true;
         forwardAxis = new(0, 0, -1);
+    }
+
+    private void UnlockFish()
+    {
+        var save = GameSave.FromStaticSave();
+        switch (Type)
+        {
+            default:
+            case FishType.Default:
+                save.DefaultFound = true;
+                GameSave.DefaultFoundSave = true;
+                break;
+            case FishType.QuickBoi:
+                save.GreenFound = true;
+                GameSave.GreenFoundSave = true;
+                break;
+            case FishType.Epik:
+                save.EpikFound = true;
+                GameSave.EpikFoundSave = true;
+                break;
+            case FishType.NextBot:
+                save.BotFound = true;
+                GameSave.BotFoundSave = true;
+                break;
+        }
+        GameSave.Save_Save(save);
     }
 }
