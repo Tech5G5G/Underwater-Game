@@ -11,12 +11,12 @@ public partial class GameOver : Control
 		var tree = GetTree();
 		tree.Paused = true;
 
-		(Resume = GetNode<Button>("Control/Respawn")).ButtonUp += () =>
+		(Resume = GetNode<Button>("Control/Respawn")).Pressed += () =>
 		{ 
             tree.Paused = false;
 			tree.ChangeSceneToFile("res://scenes/map.tscn");
 		};
-		(Menu = GetNode<Button>("Control/Menu")).ButtonUp += () =>
+		(Menu = GetNode<Button>("Control/Menu")).Pressed += () =>
 		{
             player.HealthPower = null;
             tree.Paused = false;
